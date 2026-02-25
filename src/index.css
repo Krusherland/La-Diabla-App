@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Rubik+Burned&family=Nosifer&family=Metal+Mania&family=Rye&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+
+  body {
+    @apply min-h-screen bg-diabla-black font-rye text-diabla-smokeGray;
+    background-image: 
+      radial-gradient(ellipse at top, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom, rgba(255, 0, 0, 0.05) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-metal font-bold tracking-wider;
+  }
+
+  h1 {
+    @apply text-diabla-fireRed;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 69, 0, 0.6), 0 2px 4px rgba(0,0,0,0.9);
+  }
+
+  h2, h3 {
+    @apply text-diabla-hotRed;
+    text-shadow: 0 0 10px rgba(220, 20, 60, 0.7), 0 2px 3px rgba(0,0,0,0.8);
+  }
+}
+
+@layer components {
+  /* Dark Edgy Theme Components with Fire Effects */
+  
+  /* Textured Dark Cards */
+  .diabla-card {
+    @apply bg-diabla-charcoal rounded-lg overflow-hidden transition-all duration-300 border border-diabla-darkGray;
+    background-image: 
+      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139, 0, 0, 0.03) 10px, rgba(139, 0, 0, 0.03) 20px),
+      linear-gradient(to bottom, rgba(255, 0, 0, 0.02) 0%, transparent 100%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 0, 0, 0.1);
+  }
+
+  .diabla-card:hover {
+    @apply border-diabla-emberRed scale-105;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.4), 0 0 60px rgba(255, 0, 0, 0.2), inset 0 1px 0 rgba(255, 0, 0, 0.2);
+  }
+
+  .diabla-card-image {
+    @apply w-full h-64 object-cover;
+    box-shadow: inset 0 -40px 40px -20px rgba(10, 10, 10, 0.8);
+  }
+
+  /* Gradient Burn Buttons */
+  .diabla-button {
+    @apply font-metal font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center gap-2 border-2;
+    background: linear-gradient(135deg, #0a0a0a 0%, #8B0000 50%, #DC143C 100%);
+    border-color: #8B0000;
+    color: #FFD700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(139, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .diabla-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .diabla-button:hover::before {
+    opacity: 1;
+    animation: ember-pulse 1.5s infinite;
+  }
+
+  .diabla-button:hover {
+    @apply border-diabla-fireRed scale-105;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), 0 0 60px rgba(255, 69, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.7);
+    color: #fff;
+  }
+
+  .diabla-button-outline {
+    @apply border-2 border-diabla-emberRed bg-transparent text-diabla-hotRed hover:bg-diabla-emberRed hover:text-white font-metal font-bold py-3 px-6 rounded-lg transition-all duration-300 uppercase tracking-wider;
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+  }
+
+  .diabla-button-outline:hover {
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.5), inset 0 0 20px rgba(255, 0, 0, 0.2);
+  }
+
+  /* Dark Dramatic Hero */
+  .hero-diabla {
+    @apply relative text-white overflow-hidden;
+    background: linear-gradient(to bottom, #0a0a0a 0%, #1a1a1a 50%, #8B0000 100%);
+    background-attachment: fixed;
+    min-height: 70vh;
+  }
+
+  .hero-diabla::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(255, 69, 0, 0.1) 0%, transparent 50%);
+    animation: fire-flicker 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* Dark Textured Navbar */
+  .navbar-diabla {
+    @apply bg-diabla-black border-b-2 border-diabla-emberRed;
+    background-image: 
+      linear-gradient(to right, rgba(139, 0, 0, 0.1) 0%, transparent 100%),
+      repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 0, 0, 0.02) 50px, rgba(255, 0, 0, 0.02) 100px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 40px rgba(139, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Fire Glow Text */
+  .text-fire-glow {
+    color: #0a0a0a;
+    -webkit-text-stroke: 1px #FF0000;
+    text-shadow: 
+      0 0 10px rgba(255, 0, 0, 0.9),
+      0 0 20px rgba(255, 69, 0, 0.7),
+      0 0 30px rgba(220, 20, 60, 0.5),
+      0 0 40px rgba(255, 0, 0, 0.4),
+      0 2px 5px rgba(0, 0, 0, 0.9);
+    animation: fire-glow-pulse 2s ease-in-out infinite;
+  }
+
+  .text-ember {
+    color: #DC143C;
+    text-shadow: 0 0 8px rgba(139, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.9);
+  }
+
+  /* Grunge Texture Overlay */
+  .grunge-texture {
+    position: relative;
+  }
+
+  .grunge-texture::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.1) 2px, rgba(0, 0, 0, 0.1) 4px),
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0, 0, 0, 0.1) 2px, rgba(0, 0, 0, 0.1) 4px);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  /* Product Badge/Price with Fire Effect */
+  .price-badge-fire {
+    @apply bg-gradient-to-br from-diabla-emberRed to-diabla-fireRed text-white font-metal font-bold px-4 py-2 rounded-full;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  }
+}
+
+@layer utilities {
+  /* Fire & Heat Animations */
+  
+  @keyframes fire-flicker {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes fire-glow-pulse {
+    0%, 100% {
+      text-shadow: 
+        0 0 10px rgba(255, 0, 0, 0.9),
+        0 0 20px rgba(255, 69, 0, 0.7),
+        0 0 30px rgba(220, 20, 60, 0.5),
+        0 0 40px rgba(255, 0, 0, 0.3);
+    }
+    50% {
+      text-shadow: 
+        0 0 20px rgba(255, 0, 0, 1),
+        0 0 35px rgba(255, 69, 0, 0.9),
+        0 0 50px rgba(220, 20, 60, 0.7),
+        0 0 60px rgba(255, 0, 0, 0.5);
+    }
+  }
+
+  @keyframes ember-pulse {
+    0%, 100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes heat-rise {
+    0% {
+      transform: translateY(0) scaleY(1);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-100px) scaleY(1.2);
+      opacity: 0;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-heat-rise {
+    animation: heat-rise 4s ease-in-out infinite;
+  }
+
+  /* Utility Classes for Dark Theme */
+  .bg-dark-texture {
+    background-color: #1a1a1a;
+    background-image: 
+      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139, 0, 0, 0.03) 10px, rgba(139, 0, 0, 0.03) 20px);
+  }
+
+  .border-fire {
+    border-color: #8B0000;
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+  }
+
+  .shadow-fire {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4), 0 0 40px rgba(255, 0, 0, 0.2);
+  }
+
+  .shadow-ember {
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+  }
+}
