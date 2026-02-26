@@ -26,17 +26,6 @@ const TrackOrder = () => {
     }
   };
 
-  const getStatusBadge = (status: OrderStatus) => {
-    const badges = {
-      pending: 'badge badge-warning',
-      preparing: 'badge badge-info',
-      ready: 'badge badge-success',
-      delivered: 'badge badge-primary',
-      cancelled: 'badge badge-error',
-    };
-    return badges[status];
-  };
-
   const getStatusText = (status: OrderStatus) => {
     const texts = {
       pending: 'Pendiente',

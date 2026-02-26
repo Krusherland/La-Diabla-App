@@ -49,11 +49,7 @@ const AdminOrders = () => {
       );
       
       if (shouldContinue) {
-        // Optimistic update for demo purposes
-        const updatedOrders = orders.map(order => 
-          order.id === orderId ? { ...order, status: newStatus } : order
-        );
-        // Force re-render by refetching (this will show the optimistic change until page reload)
+        // Optimistic update for demo purposes - force re-render by refetching
         setTimeout(() => refetch(), 100);
       }
     } finally {
