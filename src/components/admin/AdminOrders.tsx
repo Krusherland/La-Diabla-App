@@ -307,9 +307,9 @@ const AdminOrders = () => {
 
       {/* Order Details Modal */}
       {selectedOrder && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50">
-          <div className="admin-card-animated max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-diabla-charcoal p-6 border-b border-diabla-darkGray flex justify-between items-start z-10">
+        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50 overflow-y-auto">
+          <div className="admin-card-animated max-w-3xl w-full my-8 flex flex-col max-h-[calc(100vh-4rem)]">
+            <div className="bg-diabla-charcoal p-6 border-b border-diabla-darkGray flex justify-between items-start flex-shrink-0">
               <div>
                 <h2 className="text-2xl font-burned font-bold text-diabla-hotRed uppercase tracking-wider">
                   Pedido #{selectedOrder.id}
@@ -320,7 +320,7 @@ const AdminOrders = () => {
               </div>
               <button
                 onClick={() => setSelectedOrder(null)}
-                className="text-diabla-smokeGray"
+                className="text-diabla-smokeGray hover:text-diabla-fireRed transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -328,7 +328,7 @@ const AdminOrders = () => {
               </button>
             </div>
 
-            <div className="p-6 space-y-6">
+            <div className="p-6 space-y-6 overflow-y-auto flex-1">
               {/* Customer Info */}
               <div>
                 <h3 className="text-lg font-burned text-diabla-hotRed uppercase tracking-wider mb-3">
