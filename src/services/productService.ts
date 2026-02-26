@@ -65,24 +65,56 @@ export const productService = {
   },
 
   // Create new product (admin)
-  createProduct: async (productData: Omit<Product, 'id'>): Promise<Product> => {
-    const response = await apiClient.post<ApiResponse<Product>>('/admin/products', productData);
-    if (response.data.success && response.data.data) {
-      return response.data.data;
+  createProduct: async (productData: any): Promise<Product> => {
+    const response = await apiClient.post<any>('/admin/products', productData);
+    // Backend returns { status: 'success', product: {...} }
+    if (response.data.status === 'success' && response.data.product) {
+      const product = response.data.product;
+      return {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: parseFloat(product.price),
+        category: product.category?.name || '',
+        image: product.image ? `${API_BASE_URL}/storage/${product.image}` : '',
+        available: product.is_active,
+      };
     }
     throw new Error(response.data.message || 'Failed to create product');
   },
 
   // Update product (admin)
-  updateProduct: async (id: number, productData: Partial<Product>): Promise<Product> => {
-    const response = await apiClient.put<ApiResponse<Product>>(
-      `/admin/products/${id}`,
-      productData
-    );
-    if (response.data.success && response.data.data) {
-      return response.data.data;
+  updateProduct: async (id: number, productData: any): Promise<Product> => {
+    console.log(`Updating product ${id} with data:`, JSON.stringify(productData, null, 2));
+    
+    try {
+      const response = await apiClient.put<any>(
+        `/admin/products/${id}`,
+        productData
+      );
+      
+      console.log('Update response:', JSON.stringify(response.data, null, 2));
+      
+      // Backend returns { status: 'success', product: {...} }
+      if (response.data.status === 'success' && response.data.product) {
+        const product = response.data.product;
+        return {
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          price: parseFloat(product.price),
+          category: product.category?.name || '',
+          image: product.image ? `${API_BASE_URL}/storage/${product.image}` : '',
+          available: product.is_active,
+        };
+      }
+      throw new Error(response.data.message || 'Failed to update product');
+    } catch (error: any) {
+      console.error('Update product error details:', JSON.stringify(error.response?.data, null, 2));
+      console.error('Error status:', error.response?.status);
+      console.error('Error message:', error.message);
+      throw error;
     }
-    throw new Error(response.data.message || 'Failed to update product');
   },
 
   // Delete product (admin)

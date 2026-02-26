@@ -114,7 +114,7 @@ const AdminOrders = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl md:text-4xl font-metal font-bold text-fire-glow uppercase tracking-widest">
+          <h1 className="text-2xl md:text-4xl font-burned font-bold text-fire-glow uppercase tracking-widest">
             GESTIÓN DE PEDIDOS
           </h1>
           <p className="text-diabla-flameOrange font-burned mt-1">
@@ -123,7 +123,7 @@ const AdminOrders = () => {
         </div>
         <button
           onClick={handleExportOrders}
-          className="diabla-button-outline"
+          className="admin-button-outline"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -133,7 +133,7 @@ const AdminOrders = () => {
       </div>
 
       {/* Filters */}
-      <div className="diabla-card p-6">
+      <div className="admin-card-animated p-6">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
           <div className="flex-1">
@@ -150,50 +150,50 @@ const AdminOrders = () => {
           <div className="flex flex-wrap gap-2 justify-start">
             <button
               onClick={() => setFilterStatus('all')}
-              className={`px-4 py-2 rounded-lg font-metal text-sm uppercase tracking-wider transition-all ${
+              className={`px-4 py-2 rounded-lg font-burned text-sm uppercase tracking-wider ${
                 filterStatus === 'all'
                   ? 'bg-diabla-fireRed text-white'
-                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray hover:border-diabla-emberRed'
+                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray'
               }`}
             >
               Todos ({orders.length})
             </button>
             <button
               onClick={() => setFilterStatus('pending')}
-              className={`px-4 py-2 rounded-lg font-metal text-sm uppercase tracking-wider transition-all ${
+              className={`px-4 py-2 rounded-lg font-burned text-sm uppercase tracking-wider ${
                 filterStatus === 'pending'
                   ? 'bg-diabla-pepperYellow text-diabla-black'
-                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray hover:border-diabla-pepperYellow'
+                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray'
               }`}
             >
               Pendientes ({orders.filter(o => o.status === 'pending').length})
             </button>
             <button
               onClick={() => setFilterStatus('preparing')}
-              className={`px-4 py-2 rounded-lg font-metal text-sm uppercase tracking-wider transition-all ${
+              className={`px-4 py-2 rounded-lg font-burned text-sm uppercase tracking-wider ${
                 filterStatus === 'preparing'
                   ? 'bg-diabla-flameOrange text-white'
-                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray hover:border-diabla-flameOrange'
+                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray'
               }`}
             >
               Preparando ({orders.filter(o => o.status === 'preparing').length})
             </button>
             <button
               onClick={() => setFilterStatus('ready')}
-              className={`px-4 py-2 rounded-lg font-metal text-sm uppercase tracking-wider transition-all ${
+              className={`px-4 py-2 rounded-lg font-burned text-sm uppercase tracking-wider ${
                 filterStatus === 'ready'
                   ? 'bg-green-600 text-white'
-                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray hover:border-green-600'
+                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray'
               }`}
             >
               Listos ({orders.filter(o => o.status === 'ready').length})
             </button>
             <button
               onClick={() => setFilterStatus('delivered')}
-              className={`px-4 py-2 rounded-lg font-metal text-sm uppercase tracking-wider transition-all ${
+              className={`px-4 py-2 rounded-lg font-burned text-sm uppercase tracking-wider ${
                 filterStatus === 'delivered'
                   ? 'bg-diabla-fireRed text-white'
-                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray hover:border-diabla-fireRed'
+                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray'
               }`}
             >
               Entregados ({orders.filter(o => o.status === 'delivered').length})
@@ -203,30 +203,30 @@ const AdminOrders = () => {
       </div>
 
       {/* Orders Table */}
-      <div className="diabla-card overflow-hidden">
+      <div className="admin-card-animated overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-diabla-black border-b border-diabla-darkGray">
               <tr>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Pedido #
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Cliente
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Teléfono
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Total
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Estado
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Fecha
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Acciones
                 </th>
               </tr>
@@ -242,10 +242,10 @@ const AdminOrders = () => {
                 filteredOrders.map((order) => (
                   <tr
                     key={order.id}
-                    className="hover:bg-diabla-black transition-colors"
+                    className=""
                   >
                     <td className="px-4 py-4 whitespace-nowrap">
-                      <span className="font-metal text-diabla-pepperYellow">
+                      <span className="font-burned text-diabla-pepperYellow">
                         #{order.id}
                       </span>
                     </td>
@@ -259,20 +259,20 @@ const AdminOrders = () => {
                       {order.customerPhone}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
-                      <span className="font-metal text-diabla-pepperYellow text-lg">
+                      <span className="font-burned text-diabla-pepperYellow text-lg">
                         ${order.total.toFixed(2)}
                       </span>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
                       {updatingOrderId === order.id ? (
-                        <span className="px-3 py-1 text-xs font-metal text-diabla-smokeGray">
+                        <span className="px-3 py-1 text-xs font-burned text-diabla-smokeGray">
                           Actualizando...
                         </span>
                       ) : (
                         <select
                           value={order.status}
                           onChange={(e) => handleStatusChange(order.id, e.target.value as OrderStatus)}
-                          className={`px-3 py-1 rounded-full text-xs font-metal uppercase tracking-wider cursor-pointer ${getStatusBadge(order.status)} border-none outline-none`}
+                          className={`px-3 py-1 rounded-full text-xs font-burned uppercase tracking-wider cursor-pointer ${getStatusBadge(order.status)} border-none outline-none`}
                         >
                           <option value="pending">Pendiente</option>
                           <option value="preparing">Preparando</option>
@@ -292,7 +292,7 @@ const AdminOrders = () => {
                     <td className="px-4 py-4 whitespace-nowrap">
                       <button
                         onClick={() => setSelectedOrder(order)}
-                        className="text-diabla-pepperYellow hover:text-diabla-flameOrange font-metal text-sm uppercase tracking-wider transition-colors"
+                        className="text-diabla-pepperYellow font-burned text-sm uppercase tracking-wider"
                       >
                         Ver Detalles
                       </button>
@@ -308,10 +308,10 @@ const AdminOrders = () => {
       {/* Order Details Modal */}
       {selectedOrder && (
         <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50">
-          <div className="diabla-card max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="admin-card-animated max-w-3xl w-full max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 bg-diabla-charcoal p-6 border-b border-diabla-darkGray flex justify-between items-start z-10">
               <div>
-                <h2 className="text-2xl font-metal font-bold text-diabla-hotRed uppercase tracking-wider">
+                <h2 className="text-2xl font-burned font-bold text-diabla-hotRed uppercase tracking-wider">
                   Pedido #{selectedOrder.id}
                 </h2>
                 <p className="text-sm text-diabla-smokeGray font-rye mt-1">
@@ -320,7 +320,7 @@ const AdminOrders = () => {
               </div>
               <button
                 onClick={() => setSelectedOrder(null)}
-                className="text-diabla-smokeGray hover:text-diabla-fireRed transition-colors"
+                className="text-diabla-smokeGray"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -331,13 +331,13 @@ const AdminOrders = () => {
             <div className="p-6 space-y-6">
               {/* Customer Info */}
               <div>
-                <h3 className="text-lg font-metal text-diabla-hotRed uppercase tracking-wider mb-3">
+                <h3 className="text-lg font-burned text-diabla-hotRed uppercase tracking-wider mb-3">
                   Información del Cliente
                 </h3>
                 <div className="bg-diabla-black p-4 rounded-lg space-y-2">
                   <div className="flex justify-between">
                     <span className="text-diabla-smokeGray font-rye text-sm">Nombre:</span>
-                    <span className="text-diabla-pepperYellow font-metal">{selectedOrder.customerName}</span>
+                    <span className="text-diabla-pepperYellow font-burned">{selectedOrder.customerName}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-diabla-smokeGray font-rye text-sm">Email:</span>
@@ -356,7 +356,7 @@ const AdminOrders = () => {
 
               {/* Order Items */}
               <div>
-                <h3 className="text-lg font-metal text-diabla-hotRed uppercase tracking-wider mb-3">
+                <h3 className="text-lg font-burned text-diabla-hotRed uppercase tracking-wider mb-3">
                   Productos
                 </h3>
                 <div className="space-y-2">
@@ -374,7 +374,7 @@ const AdminOrders = () => {
                           />
                         )}
                         <div>
-                          <div className="font-metal text-diabla-pepperYellow">
+                          <div className="font-burned text-diabla-pepperYellow">
                             {item.productName}
                           </div>
                           <div className="text-sm text-diabla-smokeGray font-rye">
@@ -382,7 +382,7 @@ const AdminOrders = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="font-metal text-diabla-hotRed">
+                      <div className="font-burned text-diabla-hotRed">
                         ${item.subtotal.toFixed(2)}
                       </div>
                     </div>
@@ -392,7 +392,7 @@ const AdminOrders = () => {
 
               {/* Order Summary */}
               <div>
-                <h3 className="text-lg font-metal text-diabla-hotRed uppercase tracking-wider mb-3">
+                <h3 className="text-lg font-burned text-diabla-hotRed uppercase tracking-wider mb-3">
                   Resumen del Pedido
                 </h3>
                 <div className="bg-diabla-black p-4 rounded-lg space-y-2">
@@ -405,8 +405,8 @@ const AdminOrders = () => {
                     <span className="text-diabla-pepperYellow">${selectedOrder.tax.toFixed(2)}</span>
                   </div>
                   <div className="border-t border-diabla-darkGray pt-2 mt-2 flex justify-between">
-                    <span className="text-diabla-hotRed font-metal text-lg uppercase">Total:</span>
-                    <span className="text-diabla-fireRed font-metal text-2xl">${selectedOrder.total.toFixed(2)}</span>
+                    <span className="text-diabla-hotRed font-burned text-lg uppercase">Total:</span>
+                    <span className="text-diabla-fireRed font-burned text-2xl">${selectedOrder.total.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -414,7 +414,7 @@ const AdminOrders = () => {
               {/* Notes */}
               {selectedOrder.notes && (
                 <div>
-                  <h3 className="text-lg font-metal text-diabla-hotRed uppercase tracking-wider mb-3">
+                  <h3 className="text-lg font-burned text-diabla-hotRed uppercase tracking-wider mb-3">
                     Notas
                   </h3>
                   <div className="bg-diabla-black p-4 rounded-lg">
@@ -426,7 +426,7 @@ const AdminOrders = () => {
               {/* Status */}
               <div className="flex items-center justify-between">
                 <span className="text-diabla-smokeGray font-rye">Estado actual:</span>
-                <span className={`px-4 py-2 rounded-full text-sm font-metal uppercase tracking-wider ${getStatusBadge(selectedOrder.status)}`}>
+                <span className={`px-4 py-2 rounded-full text-sm font-burned uppercase tracking-wider ${getStatusBadge(selectedOrder.status)}`}>
                   {getStatusText(selectedOrder.status)}
                 </span>
               </div>

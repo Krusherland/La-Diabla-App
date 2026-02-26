@@ -40,7 +40,7 @@ const TrackOrder = () => {
   const getStatusText = (status: OrderStatus) => {
     const texts = {
       pending: 'Pendiente',
-      preparing: 'En Preparación',
+      preparing: 'En Preparacion',
       ready: 'Listo',
       delivered: 'Entregado',
       cancelled: 'Cancelado',
@@ -50,8 +50,8 @@ const TrackOrder = () => {
 
   const getStatusIcon = (status: OrderStatus) => {
     const icons = {
-      pending: '⏳',
-      preparing: '👨‍🍳',
+      pending: '⏰',
+      preparing: '🔥🍕',
       ready: '✅',
       delivered: '🚀',
       cancelled: '❌',
@@ -64,9 +64,9 @@ const TrackOrder = () => {
       <div className="container mx-auto px-4">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-5xl font-metal font-bold mb-4 text-fire-glow uppercase tracking-widest">RASTREAR PEDIDO</h1>
+        <h1 className="text-5xl font-burned font-bold mb-4 text-fire-glow uppercase tracking-widest">RASTREAR PEDIDO</h1>
         <p className="text-xl text-diabla-flameOrange font-burned">
-          Ingresa tu número de pedido y email para ver el estado
+          Ingresa tu numero de pedido y email para ver el estado
         </p>
       </div>
 
@@ -76,7 +76,7 @@ const TrackOrder = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="label">
-                <span className="text-diabla-pepperYellow font-metal uppercase tracking-wider text-sm">Número de Pedido</span>
+                <span className="text-diabla-pepperYellow font-burned uppercase tracking-wider text-sm">Numero de Pedido</span>
               </label>
               <input
                 type="number"
@@ -90,7 +90,7 @@ const TrackOrder = () => {
 
             <div>
               <label className="label">
-                <span className="text-diabla-pepperYellow font-metal uppercase tracking-wider text-sm">Email</span>
+                <span className="text-diabla-pepperYellow font-burned uppercase tracking-wider text-sm">Email</span>
               </label>
               <input
                 type="email"
@@ -125,11 +125,11 @@ const TrackOrder = () => {
           {/* Status Section */}
           <div className="diabla-card p-8 mb-8 text-center">
             <div className="text-7xl mb-4">{getStatusIcon(order.status)}</div>
-            <h2 className="text-4xl font-metal font-bold mb-4 text-fire-glow uppercase">
+            <h2 className="text-4xl font-burned font-bold mb-4 text-fire-glow uppercase">
               PEDIDO #{order.id}
             </h2>
             <div className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-diabla-emberRed to-diabla-hotRed border-2 border-diabla-fireRed shadow-fire mb-4">
-              <span className="text-white font-metal text-lg uppercase tracking-wider">
+              <span className="text-white font-burned text-lg uppercase tracking-wider">
                 {getStatusText(order.status)}
               </span>
             </div>
@@ -141,24 +141,24 @@ const TrackOrder = () => {
           {/* Customer Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div className="diabla-card p-6">
-              <h3 className="font-metal text-2xl mb-4 text-diabla-hotRed uppercase tracking-wider">
+              <h3 className="font-burned text-2xl mb-4 text-diabla-hotRed uppercase tracking-wider">
                 👤 Cliente
               </h3>
               <div className="space-y-2 text-diabla-smokeGray font-rye">
-                <p><span className="text-diabla-pepperYellow font-metal">Nombre:</span> {order.customerName}</p>
-                <p><span className="text-diabla-pepperYellow font-metal">Email:</span> {order.customerEmail}</p>
-                <p><span className="text-diabla-pepperYellow font-metal">Teléfono:</span> {order.customerPhone}</p>
+                <p><span className="text-diabla-pepperYellow font-burned">Nombre:</span> {order.customerName}</p>
+                <p><span className="text-diabla-pepperYellow font-burned">Email:</span> {order.customerEmail}</p>
+                <p><span className="text-diabla-pepperYellow font-burned">Telefono:</span> {order.customerPhone}</p>
               </div>
             </div>
 
             <div className="diabla-card p-6">
-              <h3 className="font-metal text-2xl mb-4 text-diabla-hotRed uppercase tracking-wider">
+              <h3 className="font-burned text-2xl mb-4 text-diabla-hotRed uppercase tracking-wider">
                 📍 Entrega
               </h3>
               <p className="text-diabla-smokeGray font-rye">{order.deliveryAddress}</p>
               {order.notes && (
                 <div className="mt-4 p-3 bg-diabla-black rounded border border-diabla-darkGray">
-                  <p className="text-xs text-diabla-darkGray font-metal uppercase mb-1">Notas:</p>
+                  <p className="text-xs text-diabla-darkGray font-burned uppercase mb-1">Notas:</p>
                   <p className="text-diabla-smokeGray font-rye text-sm">{order.notes}</p>
                 </div>
               )}
@@ -167,7 +167,7 @@ const TrackOrder = () => {
 
           {/* Order Items */}
           <div className="diabla-card p-6 mb-8">
-            <h3 className="font-metal text-2xl mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
+            <h3 className="font-burned text-2xl mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
               🍕 Detalles del Pedido
             </h3>
             <div className="space-y-4">
@@ -179,7 +179,7 @@ const TrackOrder = () => {
                     className="w-20 h-20 object-cover rounded-lg shadow-ember"
                   />
                   <div className="flex-1">
-                    <h4 className="font-metal text-lg text-diabla-hotRed uppercase">{item.productName}</h4>
+                    <h4 className="font-burned text-lg text-diabla-hotRed uppercase">{item.productName}</h4>
                     <p className="text-diabla-smokeGray font-rye">
                       ${item.price.toFixed(2)} x {item.quantity}
                     </p>
@@ -203,7 +203,7 @@ const TrackOrder = () => {
                 <span className="text-white">${order.tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-2xl pt-2">
-                <span className="font-metal text-diabla-hotRed uppercase">Total:</span>
+                <span className="font-burned text-diabla-hotRed uppercase">Total:</span>
                 <span className="price-badge-fire text-3xl">
                   ${order.total.toFixed(2)}
                 </span>

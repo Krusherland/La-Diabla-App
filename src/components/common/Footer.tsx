@@ -9,20 +9,20 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About section */}
           <div>
-            <h3 className="font-metal text-2xl mb-4 text-diabla-fireRed uppercase tracking-wider">LA DIABLA</h3>
+            <h3 className="font-burned text-2xl mb-4 text-diabla-fireRed uppercase tracking-wider">LA DIABLA</h3>
             <p className="text-sm text-diabla-smokeGray font-rye">
-              Sabor ardiente que te hará sudar. Pizza argentina con actitud y fuego en cada slice.
+              Sabor ardiente que te hara sudar. Pizza argentina con actitud y fuego en cada slice.
             </p>
-            <div className="mt-4 text-3xl">🔥🌶️🍕</div>
+            <div className="mt-4 text-3xl">🔥🍕🌶️</div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-metal text-xl mb-4 text-diabla-hotRed uppercase tracking-wider">Enlaces</h3>
+            <h3 className="font-burned text-xl mb-4 text-diabla-hotRed uppercase tracking-wider">Enlaces</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/menu" className="text-sm text-diabla-smokeGray hover:text-diabla-fireRed transition-colors font-rye">
-                  Menú
+                  Menu
                 </Link>
               </li>
               <li>
@@ -50,7 +50,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-metal text-xl mb-4 text-diabla-hotRed uppercase tracking-wider">Contacto</h3>
+            <h3 className="font-burned text-xl mb-4 text-diabla-hotRed uppercase tracking-wider">Contacto</h3>
             <ul className="space-y-2 text-sm text-diabla-smokeGray font-rye">
               <li className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-diabla-flameOrange" fill="currentColor" viewBox="0 0 20 20">
@@ -76,7 +76,7 @@ const Footer = () => {
 
           {/* Social Media */}
           <div>
-            <h3 className="font-metal text-xl mb-4 text-diabla-hotRed uppercase tracking-wider">Síguenos</h3>
+            <h3 className="font-burned text-xl mb-4 text-diabla-hotRed uppercase tracking-wider">Siguenos</h3>
             <div className="flex gap-4">
               <a
                 href="https://facebook.com"
@@ -117,7 +117,7 @@ const Footer = () => {
 
         {/* Bottom bar */}
         <div className="border-t border-diabla-darkGray mt-8 pt-6 text-center text-sm text-diabla-smokeGray font-rye">
-          <p>&copy; {currentYear} La Diabla Pizzería - Todos los derechos reservados. 🔥</p>
+          <p>&copy; {currentYear} La Diabla Pizzeria - Todos los derechos reservados. 🔥</p>
         </div>
       </div>
     </footer>

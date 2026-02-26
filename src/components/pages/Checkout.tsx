@@ -21,12 +21,12 @@ const PROMO_CODES: Record<string, PromoCode> = {
 
 const CITIES = [
   'Buenos Aires',
-  'Córdoba',
+  'Cordoba',
   'Rosario',
   'Mendoza',
   'La Plata',
   'Mar del Plata',
-  'San Miguel de Tucumán',
+  'San Miguel de Tucuman',
   'Salta',
 ];
 
@@ -73,32 +73,32 @@ const Checkout = () => {
     const code = promoCode.trim().toUpperCase();
     
     if (!code) {
-      showNotification('error', 'Ingrese un código promocional');
+      showNotification('error', 'Ingrese un codigo promocional');
       return;
     }
 
     if (appliedPromo === code) {
-      showNotification('error', 'Este código ya está aplicado');
+      showNotification('error', 'Este codigo ya esta aplicado');
       return;
     }
 
     const promo = PROMO_CODES[code];
     
     if (!promo) {
-      showNotification('error', 'Código promocional inválido');
+      showNotification('error', 'Codigo promocional invalido');
       return;
     }
 
     let discountValue = 0;
     if (promo.type === 'percent') {
       discountValue = subtotal * (promo.value / 100);
-      showNotification('success', `¡Código aplicado! ${promo.value}% de descuento`);
+      showNotification('success', `Codigo aplicado! ${promo.value}% de descuento`);
     } else if (promo.type === 'fixed') {
       discountValue = promo.value;
-      showNotification('success', `¡Código aplicado! $${promo.value} de descuento`);
+      showNotification('success', `Codigo aplicado! $${promo.value} de descuento`);
     } else if (promo.type === 'delivery') {
       // Free delivery handled separately
-      showNotification('success', '¡Envío gratis aplicado!');
+      showNotification('success', 'Envio gratis aplicado!');
     }
 
     setDiscount(discountValue);
@@ -109,7 +109,7 @@ const Checkout = () => {
   const handleRemovePromo = () => {
     setDiscount(0);
     setAppliedPromo('');
-    showNotification('success', 'Código promocional removido');
+    showNotification('success', 'Codigo promocional removido');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -121,7 +121,7 @@ const Checkout = () => {
     }
 
     if (cart.items.length === 0) {
-      showNotification('error', 'Tu carrito está vacío');
+      showNotification('error', 'Tu carrito esta vacio');
       return;
     }
 
@@ -145,7 +145,7 @@ const Checkout = () => {
       clearCart();
       
       // Show success and redirect
-      showNotification('success', '¡Pedido realizado con éxito!');
+      showNotification('success', 'Pedido realizado con exito!');
       
       // Redirect to order success page
       setTimeout(() => {
@@ -169,15 +169,15 @@ const Checkout = () => {
       {notification && (
         <div className="toast toast-top toast-center z-50">
           <div className={`alert ${notification.type === 'success' ? 'bg-diabla-fireRed' : 'bg-diabla-emberRed'} text-white shadow-fire border-none`}>
-            <span className="font-metal">
-              {notification.type === 'success' ? '✓' : '✗'} {notification.message}
+            <span className="font-burned">
+              {notification.type === 'success' ? '✓' : '✕'} {notification.message}
             </span>
           </div>
         </div>
       )}
 
       <div className="container mx-auto px-4">
-        <h1 className="text-5xl md:text-6xl font-metal font-bold mb-8 text-fire-glow uppercase tracking-widest text-center">
+        <h1 className="text-5xl md:text-6xl font-burned font-bold mb-8 text-fire-glow uppercase tracking-widest text-center">
           <i className="fas fa-fire"></i> FINALIZAR PEDIDO
         </h1>
 
@@ -187,8 +187,8 @@ const Checkout = () => {
             <div className="lg:col-span-2 space-y-6">
               {/* Customer Information */}
               <div className="diabla-card p-6">
-                <h2 className="text-2xl font-metal mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
-                  <i className="fas fa-user"></i> Información Personal
+                <h2 className="text-2xl font-burned mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
+                  <i className="fas fa-user"></i> Informacion Personal
                 </h2>
                 <div className="space-y-4">
                   <div>
@@ -200,7 +200,7 @@ const Checkout = () => {
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
                       required
-                      placeholder="Juan Pérez"
+                      placeholder="Juan Perez"
                       className="w-full px-4 py-3 bg-diabla-charcoal border border-diabla-darkGray rounded-lg text-white font-rye focus:border-diabla-fireRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed transition-all"
                     />
                   </div>
@@ -220,7 +220,7 @@ const Checkout = () => {
                     </div>
                     <div>
                       <label className="block text-diabla-smokeGray font-rye mb-2">
-                        Teléfono *
+                        Telefono *
                       </label>
                       <input
                         type="tel"
@@ -237,13 +237,13 @@ const Checkout = () => {
 
               {/* Delivery Information */}
               <div className="diabla-card p-6">
-                <h2 className="text-2xl font-metal mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
-                  <i className="fas fa-map-marker-alt"></i> Dirección de Entrega
+                <h2 className="text-2xl font-burned mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
+                  <i className="fas fa-map-marker-alt"></i> Direccion de Entrega
                 </h2>
                 <div className="space-y-4">
                   <div>
                     <label className="block text-diabla-smokeGray font-rye mb-2">
-                      Dirección *
+                      Direccion *
                     </label>
                     <input
                       type="text"
@@ -275,7 +275,7 @@ const Checkout = () => {
                     </div>
                     <div>
                       <label className="block text-diabla-smokeGray font-rye mb-2">
-                        Código Postal
+                        Codigo Postal
                       </label>
                       <input
                         type="text"
@@ -292,8 +292,8 @@ const Checkout = () => {
 
               {/* Payment Method */}
               <div className="diabla-card p-6">
-                <h2 className="text-2xl font-metal mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
-                  <i className="fas fa-credit-card"></i> Método de Pago
+                <h2 className="text-2xl font-burned mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
+                  <i className="fas fa-credit-card"></i> Metodo de Pago
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <label className={`relative flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${paymentMethod === 'cash' ? 'border-diabla-fireRed bg-diabla-charcoal shadow-ember' : 'border-diabla-darkGray bg-diabla-black hover:border-diabla-emberRed'}`}>
@@ -360,7 +360,7 @@ const Checkout = () => {
 
               {/* Order Notes */}
               <div className="diabla-card p-6">
-                <h2 className="text-2xl font-metal mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
+                <h2 className="text-2xl font-burned mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
                   <i className="fas fa-comment"></i> Notas del Pedido
                 </h2>
                 <textarea
@@ -376,7 +376,7 @@ const Checkout = () => {
             {/* Right Column: Order Summary */}
             <div className="lg:col-span-1">
               <div className="diabla-card p-6 sticky top-24">
-                <h2 className="text-2xl font-metal mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
+                <h2 className="text-2xl font-burned mb-6 text-diabla-hotRed uppercase tracking-wider flex items-center gap-2">
                   <i className="fas fa-receipt"></i> Resumen
                 </h2>
 
@@ -394,7 +394,7 @@ const Checkout = () => {
                         className="w-16 h-16 object-cover rounded-lg"
                       />
                       <div className="flex-1">
-                        <p className="text-sm font-metal text-diabla-smokeGray uppercase">{item.product.name}</p>
+                        <p className="text-sm font-burned text-diabla-smokeGray uppercase">{item.product.name}</p>
                         <p className="text-xs text-diabla-smokeGray font-rye">
                           {item.quantity} x ${item.product.price}
                         </p>
@@ -414,26 +414,26 @@ const Checkout = () => {
                         type="text"
                         value={promoCode}
                         onChange={(e) => setPromoCode(e.target.value)}
-                        placeholder="Código de descuento"
+                        placeholder="Codigo de descuento"
                         className="flex-1 px-3 py-2 bg-diabla-charcoal border border-diabla-darkGray rounded-lg text-white font-rye text-sm focus:border-diabla-fireRed focus:outline-none"
                       />
                       <button
                         type="button"
                         onClick={handleApplyPromo}
-                        className="px-4 py-2 bg-gradient-to-r from-diabla-emberRed to-diabla-hotRed text-white rounded-lg hover:scale-105 transition-transform font-metal uppercase text-xs tracking-wider shadow-ember"
+                        className="px-4 py-2 bg-gradient-to-r from-diabla-emberRed to-diabla-hotRed text-white rounded-lg hover:scale-105 transition-transform font-burned uppercase text-xs tracking-wider shadow-ember"
                       >
                         Aplicar
                       </button>
                     </div>
                   ) : (
                     <div className="flex items-center justify-between p-3 bg-diabla-charcoal border border-diabla-fireRed rounded-lg">
-                      <span className="text-sm text-diabla-pepperYellow font-metal">
+                      <span className="text-sm text-diabla-pepperYellow font-burned">
                         <i className="fas fa-tag"></i> {appliedPromo}
                       </span>
                       <button
                         type="button"
                         onClick={handleRemovePromo}
-                        className="text-diabla-hotRed hover:text-diabla-fireRed text-xs font-metal"
+                        className="text-diabla-hotRed hover:text-diabla-fireRed text-xs font-burned"
                       >
                         Remover
                       </button>
@@ -448,7 +448,7 @@ const Checkout = () => {
                     <span className="font-bold">${subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-diabla-smokeGray font-rye">
-                    <span>Envío:</span>
+                    <span>Envio:</span>
                     <span className="font-bold">${deliveryFee.toFixed(2)}</span>
                   </div>
                   {discount > 0 && (
@@ -458,7 +458,7 @@ const Checkout = () => {
                     </div>
                   )}
                   <div className="border-t-2 border-diabla-darkGray pt-3 flex justify-between text-xl">
-                    <span className="font-metal text-diabla-hotRed uppercase tracking-wider">Total:</span>
+                    <span className="font-burned text-diabla-hotRed uppercase tracking-wider">Total:</span>
                     <span className="price-badge-fire text-2xl">
                       ${total.toFixed(2)}
                     </span>

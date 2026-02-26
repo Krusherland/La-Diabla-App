@@ -61,7 +61,7 @@ const AdminProducts = () => {
       description: product.description,
       price: product.price.toString(),
       category: product.category,
-      image: product.image,
+      image: '', // Leave empty so user can optionally update it
       available: product.available,
     });
     setShowEditModal(true);
@@ -92,14 +92,33 @@ const AdminProducts = () => {
     setIsSubmitting(true);
 
     try {
-      const productData = {
+      // Find the category ID from the category name
+      const selectedCategory = categories.find(cat => cat.name === formData.category);
+      if (!selectedCategory) {
+        alert('Por favor selecciona una categoria valida');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Transform frontend data to backend format
+      const productData: any = {
         name: formData.name,
         description: formData.description,
         price: parseFloat(formData.price),
-        category: formData.category,
-        image: formData.image,
-        available: formData.available,
+        category_id: selectedCategory.id, // Backend expects category_id
+        is_active: formData.available, // Backend expects is_active
       };
+
+      // Only include image if provided
+      // For updates, skip the image field if empty (keeps existing image)
+      if (formData.image && formData.image.trim() !== '') {
+        // For new products or when changing the image path
+        if (showAddModal || !formData.image.includes('products/')) {
+          productData.image = formData.image;
+        }
+      }
+
+      console.log('Sending product data:', productData);
 
       if (showEditModal && selectedProduct) {
         await productService.updateProduct(selectedProduct.id, productData);
@@ -109,9 +128,26 @@ const AdminProducts = () => {
 
       await refetch();
       handleCloseModals();
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error saving product:', err);
-      alert('Error al guardar el producto. Función de placeholder - implementar en producción.');
+      console.error('Error response details:', JSON.stringify(err.response?.data, null, 2));
+      console.error('Error status:', err.response?.status);
+      
+      const errorMessage = err.response?.data?.message || err.message || 'Error desconocido';
+      const errors = err.response?.data?.errors;
+      
+      let fullErrorMessage = `Error al guardar el producto: ${errorMessage}`;
+      
+      // If there are validation errors, show them
+      if (errors) {
+        const errorDetails = Object.entries(errors)
+          .map(([field, messages]: [string, any]) => `${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`)
+          .join('\n');
+        fullErrorMessage += `\n\nDetalles:\n${errorDetails}`;
+      }
+      
+      console.error('Full error message:', fullErrorMessage);
+      alert(fullErrorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -141,7 +177,7 @@ const AdminProducts = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl md:text-4xl font-metal font-bold text-fire-glow uppercase tracking-widest">
+          <h1 className="text-2xl md:text-4xl font-burned font-bold text-fire-glow uppercase tracking-widest">
             GESTIÓN DE PRODUCTOS
           </h1>
           <p className="text-diabla-flameOrange font-burned mt-1">
@@ -150,7 +186,7 @@ const AdminProducts = () => {
         </div>
         <button
           onClick={handleOpenAddModal}
-          className="diabla-button"
+          className="admin-button"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -160,7 +196,7 @@ const AdminProducts = () => {
       </div>
 
       {/* Filters */}
-      <div className="diabla-card p-6">
+      <div className="admin-card-animated p-6">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
           <div className="flex-1">
@@ -177,7 +213,7 @@ const AdminProducts = () => {
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-metal focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
+            className="px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-burned focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
           >
             <option value="all">Todas las Categorías</option>
             {categories.map((cat) => (
@@ -190,27 +226,27 @@ const AdminProducts = () => {
       </div>
 
       {/* Products Table */}
-      <div className="diabla-card overflow-hidden">
+      <div className="admin-card-animated overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-diabla-black border-b border-diabla-darkGray">
               <tr>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Imagen
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Nombre
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Categoría
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Precio
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Estado
                 </th>
-                <th className="px-4 py-4 text-right text-xs font-metal uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-right text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
                   Acciones
                 </th>
               </tr>
@@ -226,7 +262,7 @@ const AdminProducts = () => {
                 filteredProducts.map((product) => (
                   <tr
                     key={product.id}
-                    className="hover:bg-diabla-black transition-colors"
+                    className=""
                   >
                     <td className="px-4 py-4">
                       <img
@@ -237,25 +273,25 @@ const AdminProducts = () => {
                     </td>
                     <td className="px-4 py-4">
                       <div className="text-sm">
-                        <div className="font-metal text-diabla-pepperYellow">{product.name}</div>
+                        <div className="font-burned text-diabla-pepperYellow">{product.name}</div>
                         <div className="text-xs text-diabla-darkGray font-rye line-clamp-1">
                           {product.description}
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
-                      <span className="px-3 py-1 bg-diabla-black text-diabla-flameOrange rounded-full text-xs font-metal uppercase tracking-wider">
+                      <span className="px-3 py-1 bg-diabla-black text-diabla-flameOrange rounded-full text-xs font-burned uppercase tracking-wider">
                         {product.category}
                       </span>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
-                      <span className="font-metal text-diabla-pepperYellow text-lg">
+                      <span className="font-burned text-diabla-pepperYellow text-lg">
                         ${product.price.toFixed(2)}
                       </span>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
                       <span
-                        className={`px-3 py-1 rounded-full text-xs font-metal uppercase tracking-wider ${
+                        className={`px-3 py-1 rounded-full text-xs font-burned uppercase tracking-wider ${
                           product.available
                             ? 'bg-green-600 text-white'
                             : 'bg-diabla-smokeGray text-white'
@@ -268,7 +304,7 @@ const AdminProducts = () => {
                       <div className="flex justify-end gap-2">
                         <button
                           onClick={() => handleOpenEditModal(product)}
-                          className="text-diabla-pepperYellow hover:text-diabla-flameOrange transition-colors p-2"
+                          className="text-diabla-pepperYellow p-2"
                           title="Editar"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -277,7 +313,7 @@ const AdminProducts = () => {
                         </button>
                         <button
                           onClick={() => handleOpenDeleteModal(product)}
-                          className="text-diabla-fireRed hover:text-red-700 transition-colors p-2"
+                          className="text-diabla-fireRed p-2"
                           title="Eliminar"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -297,14 +333,14 @@ const AdminProducts = () => {
       {/* Add/Edit Product Modal */}
       {(showAddModal || showEditModal) && (
         <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50">
-          <div className="diabla-card max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-diabla-charcoal p-6 border-b border-diabla-darkGray flex justify-between items-center z-10">
-              <h2 className="text-2xl font-metal font-bold text-diabla-hotRed uppercase tracking-wider">
+          <div className="admin-card-animated max-w-2xl w-full max-h-[90vh] flex flex-col">
+            <div className="bg-diabla-charcoal p-6 border-b border-diabla-darkGray flex justify-between items-center">
+              <h2 className="text-2xl font-burned font-bold text-diabla-hotRed uppercase tracking-wider">
                 {showEditModal ? 'Editar Producto' : 'Agregar Producto'}
               </h2>
               <button
                 onClick={handleCloseModals}
-                className="text-diabla-smokeGray hover:text-diabla-fireRed transition-colors"
+                className="text-diabla-smokeGray"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -312,12 +348,13 @@ const AdminProducts = () => {
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-metal text-diabla-hotRed uppercase tracking-wider mb-2">
-                  Nombre
-                </label>
-                <input
+            <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
+              <div className="p-6 space-y-4 overflow-y-auto flex-1">
+                <div>
+                  <label className="block text-sm font-burned text-diabla-hotRed uppercase tracking-wider mb-2">
+                    Nombre
+                  </label>
+                  <input
                   type="text"
                   required
                   value={formData.name}
@@ -328,7 +365,7 @@ const AdminProducts = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-metal text-diabla-hotRed uppercase tracking-wider mb-2">
+                <label className="block text-sm font-burned text-diabla-hotRed uppercase tracking-wider mb-2">
                   Descripción
                 </label>
                 <textarea
@@ -343,7 +380,7 @@ const AdminProducts = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-metal text-diabla-hotRed uppercase tracking-wider mb-2">
+                  <label className="block text-sm font-burned text-diabla-hotRed uppercase tracking-wider mb-2">
                     Precio
                   </label>
                   <input
@@ -359,14 +396,14 @@ const AdminProducts = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-metal text-diabla-hotRed uppercase tracking-wider mb-2">
+                  <label className="block text-sm font-burned text-diabla-hotRed uppercase tracking-wider mb-2">
                     Categoría
                   </label>
                   <select
                     required
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-metal focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
+                    className="w-full px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-burned focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
                   >
                     <option value="">Seleccionar...</option>
                     {categories.map((cat) => (
@@ -379,16 +416,16 @@ const AdminProducts = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-metal text-diabla-hotRed uppercase tracking-wider mb-2">
-                  URL de Imagen
+                <label className="block text-sm font-burned text-diabla-hotRed uppercase tracking-wider mb-2">
+                  URL de Imagen {showEditModal && <span className="text-diabla-smokeGray text-xs">(opcional)</span>}
                 </label>
                 <input
                   type="text"
-                  required
+                  required={!showEditModal}
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                   className="w-full px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-rye focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
-                  placeholder="/images/producto.jpg"
+                  placeholder={showEditModal ? "Dejar vacio para mantener imagen actual" : "/images/producto.jpg"}
                 />
               </div>
 
@@ -400,24 +437,25 @@ const AdminProducts = () => {
                   onChange={(e) => setFormData({ ...formData, available: e.target.checked })}
                   className="w-5 h-5 bg-diabla-black border-2 border-diabla-darkGray rounded focus:ring-2 focus:ring-diabla-emberRed/50"
                 />
-                <label htmlFor="available" className="text-sm font-metal text-diabla-hotRed uppercase tracking-wider cursor-pointer">
+                <label htmlFor="available" className="text-sm font-burned text-diabla-hotRed uppercase tracking-wider cursor-pointer">
                   Producto disponible
                 </label>
               </div>
+              </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="bg-diabla-charcoal border-t border-diabla-darkGray p-6 flex gap-3">
                 <button
                   type="button"
                   onClick={handleCloseModals}
                   disabled={isSubmitting}
-                  className="flex-1 diabla-button-outline justify-center"
+                  className="flex-1 admin-button-outline justify-center"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 diabla-button justify-center"
+                  className="flex-1 admin-button justify-center"
                 >
                   {isSubmitting ? 'Guardando...' : showEditModal ? 'Actualizar' : 'Crear'}
                 </button>
@@ -430,7 +468,7 @@ const AdminProducts = () => {
       {/* Delete Confirmation Modal */}
       {showDeleteModal && selectedProduct && (
         <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50">
-          <div className="diabla-card max-w-md w-full">
+          <div className="admin-card-animated max-w-md w-full">
             <div className="p-6">
               <div className="flex items-center justify-center mb-4">
                 <div className="w-16 h-16 bg-diabla-fireRed rounded-full flex items-center justify-center">
@@ -440,11 +478,11 @@ const AdminProducts = () => {
                 </div>
               </div>
 
-              <h2 className="text-2xl font-metal font-bold text-diabla-hotRed uppercase tracking-wider text-center mb-2">
+              <h2 className="text-2xl font-burned font-bold text-diabla-hotRed uppercase tracking-wider text-center mb-2">
                 Confirmar Eliminación
               </h2>
               <p className="text-center text-diabla-smokeGray font-rye mb-6">
-                ¿Estás seguro que deseas eliminar <span className="text-diabla-pepperYellow font-metal">{selectedProduct.name}</span>? Esta acción no se puede deshacer.
+                ¿Estás seguro que deseas eliminar <span className="text-diabla-pepperYellow font-burned">{selectedProduct.name}</span>? Esta acción no se puede deshacer.
               </p>
 
               <div className="flex gap-3">
@@ -452,7 +490,7 @@ const AdminProducts = () => {
                   type="button"
                   onClick={handleCloseModals}
                   disabled={isSubmitting}
-                  className="flex-1 diabla-button-outline justify-center"
+                  className="flex-1 admin-button-outline justify-center"
                 >
                   Cancelar
                 </button>
@@ -460,7 +498,7 @@ const AdminProducts = () => {
                   type="button"
                   onClick={handleDelete}
                   disabled={isSubmitting}
-                  className="flex-1 bg-diabla-fireRed hover:bg-red-700 text-white font-metal font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                  className="flex-1 bg-diabla-fireRed text-white font-burned font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? 'Eliminando...' : 'Eliminar'}
                 </button>

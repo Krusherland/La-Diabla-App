@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth, useCart } from '../../hooks';
+import logo from '../../assets/logo.png';
 
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
@@ -41,8 +42,8 @@ const Navbar = () => {
           </div>
 
           {/* Logo */}
-          <Link to="/" className="btn btn-ghost normal-case text-xl font-metal text-diabla-fireRed hover:text-diabla-pepperYellow uppercase tracking-wider">
-            <span className="text-3xl animate-pulse">🔥</span>
+          <Link to="/" className="btn btn-ghost normal-case text-xl font-burned text-diabla-fireRed hover:text-diabla-pepperYellow uppercase tracking-wider">
+            <img src={logo} alt="La Diabla" className="h-8 w-auto" />
             <span className="hidden sm:inline text-fire-glow">LA DIABLA</span>
           </Link>
         </div>
@@ -64,8 +65,8 @@ const Navbar = () => {
           {/* Admin shortcut - always visible for portfolio demo */}
           <Link 
             to="/admin" 
-            className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-diabla-flameOrange to-diabla-fireRed text-white rounded-lg hover:scale-105 transition-transform font-metal uppercase text-xs sm:text-sm tracking-wider shadow-ember"
-            title={!isAuthenticated || user?.role !== 'admin' ? 'Requiere inicio de sesión como administrador' : 'Panel de Administración'}
+            className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-diabla-flameOrange to-diabla-fireRed text-white rounded-lg hover:scale-105 transition-transform font-burned uppercase text-xs sm:text-sm tracking-wider shadow-ember"
+            title={!isAuthenticated || user?.role !== 'admin' ? 'Requiere inicio de sesi�n como administrador' : 'Panel de Administraci�n'}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -100,7 +101,7 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar placeholder">
                 <div className="bg-gradient-to-br from-diabla-emberRed to-diabla-fireRed text-white rounded-full w-10 shadow-ember">
-                  <span className="text-xl font-metal">{user?.name.charAt(0).toUpperCase()}</span>
+                  <span className="text-xl font-burned">{user?.name.charAt(0).toUpperCase()}</span>
                 </div>
               </label>
               <ul
@@ -108,24 +109,24 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-fire bg-diabla-charcoal rounded-box w-52 border border-diabla-emberRed"
               >
                 <li className="menu-title">
-                  <span className="text-diabla-pepperYellow font-metal">{user?.name}</span>
+                  <span className="text-diabla-pepperYellow font-burned">{user?.name}</span>
                 </li>
                 <li><Link to="/profile" className="text-diabla-smokeGray hover:text-diabla-fireRed font-rye">Mi Perfil</Link></li>
                 <li><Link to="/orders" className="text-diabla-smokeGray hover:text-diabla-fireRed font-rye">Mis Pedidos</Link></li>
                 {user?.role === 'admin' && (
                   <>
-                    <li className="menu-title"><span className="text-diabla-flameOrange font-metal">Admin</span></li>
+                    <li className="menu-title"><span className="text-diabla-flameOrange font-burned">Admin</span></li>
                     <li><Link to="/admin" className="text-diabla-smokeGray hover:text-diabla-fireRed font-rye">Dashboard</Link></li>
                     <li><Link to="/admin/products" className="text-diabla-smokeGray hover:text-diabla-fireRed font-rye">Productos</Link></li>
                     <li><Link to="/admin/orders" className="text-diabla-smokeGray hover:text-diabla-fireRed font-rye">Pedidos</Link></li>
                   </>
                 )}
-                <li><button onClick={logout} className="text-diabla-smokeGray hover:text-diabla-fireRed font-rye">Cerrar Sesión</button></li>
+                <li><button onClick={logout} className="text-diabla-smokeGray hover:text-diabla-fireRed font-rye">Cerrar Sesi�n</button></li>
               </ul>
             </div>
           ) : (
-            <Link to="/login" className="px-4 py-2 bg-gradient-to-r from-diabla-emberRed to-diabla-hotRed text-white rounded-lg hover:scale-105 transition-transform font-metal uppercase text-sm tracking-wider shadow-ember">
-              Iniciar Sesión
+            <Link to="/login" className="px-4 py-2 bg-gradient-to-r from-diabla-emberRed to-diabla-hotRed text-white rounded-lg hover:scale-105 transition-transform font-burned uppercase text-sm tracking-wider shadow-ember">
+              Iniciar Sesi�n
             </Link>
           )}
         </div>

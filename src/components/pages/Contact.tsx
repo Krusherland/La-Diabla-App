@@ -34,16 +34,16 @@ const Contact = () => {
     <div className="container mx-auto px-4 py-12">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-5xl font-oswald font-bold mb-4">Contacto</h1>
-        <p className="text-xl text-gray-600">
-          ¿Tienes alguna pregunta? ¡Estamos aquí para ayudarte!
+        <h1 className="text-5xl font-burned font-bold mb-4 text-diabla-fireRed">Contacto</h1>
+        <p className="text-xl text-diabla-smokeGray">
+          Tienes alguna pregunta? Estamos aqui para ayudarte!
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
         {/* Contact Form */}
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-oswald font-bold mb-6">Envíanos un Mensaje</h2>
+        <div className="diabla-card rounded-lg shadow-md p-8">
+          <h2 className="text-2xl font-burned font-bold mb-6 text-diabla-fireRed">Envianos un Mensaje</h2>
 
           {success && (
             <div className="alert alert-success mb-6">
@@ -51,8 +51,7 @@ const Contact = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 className="stroke-current shrink-0 h-6 w-6"
                 fill="none"
-                viewBox="0 0 24 24"
-              >
+                viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -60,7 +59,7 @@ const Contact = () => {
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span>¡Mensaje enviado con éxito! Te responderemos pronto.</span>
+              <span>Mensaje enviado con exito! Te responderemos pronto.</span>
             </div>
           )}
 
@@ -86,51 +85,51 @@ const Contact = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="label">
-                <span className="label-text font-medium">Nombre</span>
+                <span className="label-text font-medium text-diabla-smokeGray">Nombre</span>
               </label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-diabla-red"
+                className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-diabla-fireRed"
                 required
               />
             </div>
 
             <div>
               <label className="label">
-                <span className="label-text font-medium">Email</span>
+                <span className="label-text font-medium text-diabla-smokeGray">Email</span>
               </label>
               <input
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-diabla-red"
+                className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-diabla-fireRed"
                 required
               />
             </div>
 
             <div>
               <label className="label">
-                <span className="label-text font-medium">Teléfono</span>
+                <span className="label-text font-medium text-diabla-smokeGray">Telefono</span>
               </label>
               <input
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-diabla-red"
+                className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-diabla-fireRed"
                 required
               />
             </div>
 
             <div>
               <label className="label">
-                <span className="label-text font-medium">Mensaje</span>
+                <span className="label-text font-medium text-diabla-smokeGray">Mensaje</span>
               </label>
               <textarea
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-diabla-red min-h-[150px]"
+                className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-diabla-fireRed min-h-[150px]"
                 required
               />
             </div>
@@ -138,8 +137,7 @@ const Contact = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full pizza-button justify-center"
-            >
+              className="w-full admin-button justify-center">
               {loading ? 'Enviando...' : 'Enviar Mensaje'}
             </button>
           </form>
@@ -147,39 +145,39 @@ const Contact = () => {
 
         {/* Contact Info */}
         <div>
-          <div className="bg-white rounded-lg shadow-md p-8 mb-6">
-            <h2 className="text-2xl font-oswald font-bold mb-6">Información de Contacto</h2>
+          <div className="diabla-card rounded-lg shadow-md p-8 mb-6">
+            <h2 className="text-2xl font-burned font-bold mb-6 text-diabla-fireRed">Informacion de Contacto</h2>
 
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="bg-diabla-red text-white rounded-full p-3 flex-shrink-0">
+                <div className="bg-diabla-fireRed text-white rounded-full p-3 flex-shrink-0">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-oswald text-lg mb-1">Teléfono</h3>
-                  <p className="text-gray-600">(011) 4567-8900</p>
-                  <p className="text-gray-600">Lun - Dom: 11:00 - 23:00</p>
+                  <h3 className="font-burned text-lg mb-1 text-diabla-flameOrange">Telefono</h3>
+                  <p className="text-diabla-smokeGray">(011) 4567-8900</p>
+                  <p className="text-diabla-smokeGray">Lun - Dom: 11:00 - 23:00</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="bg-diabla-red text-white rounded-full p-3 flex-shrink-0">
+                <div className="bg-diabla-fireRed text-white rounded-full p-3 flex-shrink-0">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-oswald text-lg mb-1">Email</h3>
-                  <p className="text-gray-600">info@ladiabla.com</p>
-                  <p className="text-gray-600">ventas@ladiabla.com</p>
+                  <h3 className="font-burned text-lg mb-1 text-diabla-flameOrange">Email</h3>
+                  <p className="text-diabla-smokeGray">info@ladiabla.com</p>
+                  <p className="text-diabla-smokeGray">ventas@ladiabla.com</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="bg-diabla-red text-white rounded-full p-3 flex-shrink-0">
+                <div className="bg-diabla-fireRed text-white rounded-full p-3 flex-shrink-0">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fillRule="evenodd"
@@ -189,18 +187,18 @@ const Contact = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-oswald text-lg mb-1">Ubicación</h3>
-                  <p className="text-gray-600">Buenos Aires, Argentina</p>
-                  <p className="text-gray-600">Ver nuestras sucursales</p>
+                  <h3 className="font-burned text-lg mb-1 text-diabla-flameOrange">Ubicacion</h3>
+                  <p className="text-diabla-smokeGray">Buenos Aires, Argentina</p>
+                  <p className="text-diabla-smokeGray">Ver nuestras sucursales</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-diabla-gold rounded-lg p-6 text-center">
-            <h3 className="font-oswald text-2xl mb-2">Horarios de Atención</h3>
-            <p className="text-lg">Lunes a Domingo</p>
-            <p className="text-3xl font-bold mt-2">11:00 - 23:00</p>
+          <div className="bg-diabla-flameOrange rounded-lg p-6 text-center">
+            <h3 className="font-burned text-2xl mb-2 text-diabla-black">Horarios de Atencion</h3>
+            <p className="text-lg text-diabla-black">Lunes a Domingo</p>
+            <p className="text-3xl font-bold mt-2 text-diabla-black">11:00 - 23:00</p>
           </div>
         </div>
       </div>

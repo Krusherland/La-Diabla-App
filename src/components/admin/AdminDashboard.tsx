@@ -53,7 +53,7 @@ const AdminDashboard = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl md:text-5xl font-metal font-bold text-fire-glow uppercase tracking-widest mb-2">
+          <h1 className="text-3xl md:text-5xl font-burned font-bold text-diabla-fireRed uppercase tracking-widest mb-2">
             PANEL DE CONTROL
           </h1>
           <p className="text-diabla-flameOrange font-burned text-base md:text-lg">
@@ -65,13 +65,13 @@ const AdminDashboard = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Total Products */}
-        <div className="diabla-card p-6">
+        <div className="admin-card-animated p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-diabla-smokeGray font-rye text-sm uppercase tracking-wider mb-1">
                 Total Productos
               </p>
-              <p className="text-4xl font-metal font-bold text-diabla-hotRed">
+              <p className="text-4xl font-burned font-bold text-diabla-hotRed">
                 {totalProducts}
               </p>
               <p className="text-xs text-diabla-pepperYellow mt-1 font-rye">
@@ -87,13 +87,13 @@ const AdminDashboard = () => {
         </div>
 
         {/* Total Orders */}
-        <div className="diabla-card p-6">
+        <div className="admin-card-animated p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-diabla-smokeGray font-rye text-sm uppercase tracking-wider mb-1">
                 Total Pedidos
               </p>
-              <p className="text-4xl font-metal font-bold text-diabla-hotRed">
+              <p className="text-4xl font-burned font-bold text-diabla-hotRed">
                 {totalOrders}
               </p>
               <p className="text-xs text-diabla-pepperYellow mt-1 font-rye">
@@ -109,13 +109,13 @@ const AdminDashboard = () => {
         </div>
 
         {/* Total Revenue */}
-        <div className="diabla-card p-6">
+        <div className="admin-card-animated p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-diabla-smokeGray font-rye text-sm uppercase tracking-wider mb-1">
                 Ingresos Totales
               </p>
-              <p className="text-4xl font-metal font-bold text-diabla-hotRed">
+              <p className="text-4xl font-burned font-bold text-diabla-hotRed">
                 ${totalRevenue.toFixed(0)}
               </p>
               <p className="text-xs text-diabla-pepperYellow mt-1 font-rye">
@@ -131,20 +131,20 @@ const AdminDashboard = () => {
         </div>
 
         {/* Orders in Preparation */}
-        <div className="diabla-card p-6">
+        <div className="admin-card-animated p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-diabla-smokeGray font-rye text-sm uppercase tracking-wider mb-1">
                 En Preparación
               </p>
-              <p className="text-4xl font-metal font-bold text-diabla-hotRed">
+              <p className="text-4xl font-burned font-bold text-diabla-hotRed">
                 {preparingOrders}
               </p>
               <p className="text-xs text-diabla-pepperYellow mt-1 font-rye">
                 Requieren atención
               </p>
             </div>
-            <div className="w-16 h-16 bg-gradient-to-br from-diabla-fireRed to-diabla-emberRed rounded-lg flex items-center justify-center shadow-fire animate-pulse">
+            <div className="w-16 h-16 bg-gradient-to-br from-diabla-fireRed to-diabla-emberRed rounded-lg flex items-center justify-center shadow-fire">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
               </svg>
@@ -154,29 +154,29 @@ const AdminDashboard = () => {
       </div>
 
       {/* Order Status Breakdown */}
-      <div className="diabla-card p-6">
-        <h2 className="text-2xl font-metal font-bold text-diabla-hotRed uppercase tracking-wider mb-6">
+      <div className="admin-card-animated p-6">
+        <h2 className="text-2xl font-burned font-bold text-diabla-hotRed uppercase tracking-wider mb-6">
           Estado de Pedidos
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           <div className="text-center p-4 bg-diabla-black rounded-lg border border-diabla-pepperYellow">
-            <div className="text-3xl font-metal text-diabla-pepperYellow mb-2">{pendingOrders}</div>
+            <div className="text-3xl font-burned text-diabla-pepperYellow mb-2">{pendingOrders}</div>
             <div className="text-sm font-rye text-diabla-smokeGray uppercase">Pendientes</div>
           </div>
           <div className="text-center p-4 bg-diabla-black rounded-lg border border-diabla-flameOrange">
-            <div className="text-3xl font-metal text-diabla-flameOrange mb-2">{preparingOrders}</div>
+            <div className="text-3xl font-burned text-diabla-flameOrange mb-2">{preparingOrders}</div>
             <div className="text-sm font-rye text-diabla-smokeGray uppercase">Preparando</div>
           </div>
           <div className="text-center p-4 bg-diabla-black rounded-lg border border-green-600">
-            <div className="text-3xl font-metal text-green-500 mb-2">{readyOrders}</div>
+            <div className="text-3xl font-burned text-green-500 mb-2">{readyOrders}</div>
             <div className="text-sm font-rye text-diabla-smokeGray uppercase">Listos</div>
           </div>
           <div className="text-center p-4 bg-diabla-black rounded-lg border border-diabla-fireRed">
-            <div className="text-3xl font-metal text-diabla-fireRed mb-2">{deliveredOrders}</div>
+            <div className="text-3xl font-burned text-diabla-fireRed mb-2">{deliveredOrders}</div>
             <div className="text-sm font-rye text-diabla-smokeGray uppercase">Entregados</div>
           </div>
           <div className="text-center p-4 bg-diabla-black rounded-lg border border-diabla-smokeGray">
-            <div className="text-3xl font-metal text-diabla-smokeGray mb-2">
+            <div className="text-3xl font-burned text-diabla-smokeGray mb-2">
               {orders.filter(o => o.status === 'cancelled').length}
             </div>
             <div className="text-sm font-rye text-diabla-smokeGray uppercase">Cancelados</div>
@@ -186,12 +186,12 @@ const AdminDashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Orders */}
-        <div className="lg:col-span-2 diabla-card p-6">
+        <div className="lg:col-span-2 admin-card-animated p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-metal font-bold text-diabla-hotRed uppercase tracking-wider">
+            <h2 className="text-2xl font-burned font-bold text-diabla-hotRed uppercase tracking-wider">
               Pedidos Recientes
             </h2>
-            <Link to="/admin/orders" className="text-diabla-pepperYellow hover:text-diabla-flameOrange font-metal text-sm uppercase tracking-wider transition-colors">
+            <Link to="/admin/orders" className="text-diabla-pepperYellow font-burned text-sm uppercase tracking-wider">
               Ver todos →
             </Link>
           </div>
@@ -204,11 +204,11 @@ const AdminDashboard = () => {
               recentOrders.map((order) => (
                 <div
                   key={order.id}
-                  className="flex items-center justify-between p-4 bg-diabla-black rounded-lg border border-diabla-darkGray hover:border-diabla-emberRed transition-all"
+                  className="flex items-center justify-between p-4 bg-diabla-black rounded-lg border border-diabla-darkGray"
                 >
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-1">
-                      <span className="font-metal text-diabla-hotRed">
+                      <span className="font-burned text-diabla-hotRed">
                         #{order.id}
                       </span>
                       <span className="font-rye text-diabla-smokeGray text-sm">
@@ -225,10 +225,10 @@ const AdminDashboard = () => {
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="font-metal text-diabla-pepperYellow text-lg">
+                    <span className="font-burned text-diabla-pepperYellow text-lg">
                       ${order.total.toFixed(2)}
                     </span>
-                    <span className={`px-3 py-1 rounded-full text-xs font-metal uppercase tracking-wider ${getStatusBadge(order.status)}`}>
+                    <span className={`px-3 py-1 rounded-full text-xs font-burned uppercase tracking-wider ${getStatusBadge(order.status)}`}>
                       {getStatusText(order.status)}
                     </span>
                   </div>
@@ -240,14 +240,14 @@ const AdminDashboard = () => {
 
         {/* Quick Actions */}
         <div className="space-y-6">
-          <div className="diabla-card p-6">
-            <h2 className="text-xl font-metal font-bold text-diabla-hotRed uppercase tracking-wider mb-4">
+          <div className="admin-card-animated p-6">
+            <h2 className="text-xl font-burned font-bold text-diabla-hotRed uppercase tracking-wider mb-4">
               Acciones Rápidas
             </h2>
             <div className="space-y-3">
               <Link
                 to="/admin/products"
-                className="diabla-button w-full justify-center"
+                className="admin-button w-full justify-center"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -256,7 +256,7 @@ const AdminDashboard = () => {
               </Link>
               <Link
                 to="/admin/orders"
-                className="diabla-button-outline w-full justify-center"
+                className="admin-button w-full justify-center"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -267,26 +267,26 @@ const AdminDashboard = () => {
           </div>
 
           {/* Today's Summary */}
-          <div className="diabla-card p-6">
-            <h2 className="text-xl font-metal font-bold text-diabla-hotRed uppercase tracking-wider mb-4">
+          <div className="admin-card-animated p-6">
+            <h2 className="text-xl font-burned font-bold text-diabla-hotRed uppercase tracking-wider mb-4">
               Resumen de Hoy
             </h2>
             <div className="space-y-3">
               <div className="flex justify-between items-center pb-2 border-b border-diabla-darkGray">
                 <span className="text-sm text-diabla-smokeGray font-rye">Pedidos Nuevos</span>
-                <span className="font-metal text-diabla-pepperYellow">{pendingOrders}</span>
+                <span className="font-burned text-diabla-pepperYellow">{pendingOrders}</span>
               </div>
               <div className="flex justify-between items-center pb-2 border-b border-diabla-darkGray">
                 <span className="text-sm text-diabla-smokeGray font-rye">En Cocina</span>
-                <span className="font-metal text-diabla-flameOrange">{preparingOrders}</span>
+                <span className="font-burned text-diabla-flameOrange">{preparingOrders}</span>
               </div>
               <div className="flex justify-between items-center pb-2 border-b border-diabla-darkGray">
                 <span className="text-sm text-diabla-smokeGray font-rye">Para Entregar</span>
-                <span className="font-metal text-green-500">{readyOrders}</span>
+                <span className="font-burned text-green-500">{readyOrders}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-diabla-smokeGray font-rye">Completados</span>
-                <span className="font-metal text-diabla-fireRed">{deliveredOrders}</span>
+                <span className="font-burned text-diabla-fireRed">{deliveredOrders}</span>
               </div>
             </div>
           </div>

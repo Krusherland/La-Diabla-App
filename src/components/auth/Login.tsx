@@ -32,10 +32,10 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-diabla-black py-12 px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <h1 className="text-5xl font-metal font-bold text-fire-glow mb-4 uppercase tracking-wider animate-pulse">
+          <h1 className="text-5xl font-burned font-bold text-fire-glow mb-4 uppercase tracking-wider animate-pulse">
             🔥 LA DIABLA
           </h1>
-          <h2 className="text-3xl font-burned text-diabla-pepperYellow mb-2">Iniciar Sesión</h2>
+          <h2 className="text-3xl font-burned text-diabla-pepperYellow mb-2">Iniciar Sesion</h2>
           <p className="text-diabla-smokeGray mt-2 font-rye">
             Ingresa a tu cuenta para continuar
           </p>
@@ -65,7 +65,7 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="label">
-                <span className="text-diabla-pepperYellow font-metal uppercase tracking-wider">Email</span>
+                <span className="text-diabla-pepperYellow font-burned uppercase tracking-wider">Email</span>
               </label>
               <input
                 type="email"
@@ -80,7 +80,7 @@ const Login = () => {
 
             <div>
               <label className="label">
-                <span className="text-diabla-pepperYellow font-metal uppercase tracking-wider">Contraseña</span>
+                <span className="text-diabla-pepperYellow font-burned uppercase tracking-wider">Contrasena</span>
               </label>
               <input
                 type="password"
@@ -97,15 +97,15 @@ const Login = () => {
               disabled={loading}
               className="w-full diabla-button justify-center"
             >
-              {loading ? '🔥 Iniciando sesión...' : '🔥 Iniciar Sesión'}
+              {loading ? '🔥 Iniciando sesion...' : '🔥 Iniciar Sesion'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-diabla-smokeGray font-rye">
-              ¿No tienes una cuenta?{' '}
-              <Link to="/register" className="text-diabla-fireRed hover:text-diabla-pepperYellow font-metal uppercase tracking-wider transition-colors">
-                Regístrate aquí
+              No tienes una cuenta?{' '}
+              <Link to="/register" className="text-diabla-fireRed hover:text-diabla-pepperYellow font-burned uppercase tracking-wider transition-colors">
+                Registrate aqui
               </Link>
             </p>
           </div>
@@ -119,10 +119,10 @@ const Login = () => {
 
         <div className="mt-6 bg-gradient-to-r from-diabla-emberRed to-diabla-hotRed border-2 border-diabla-fireRed rounded-lg p-4 shadow-fire">
           <p className="text-sm text-white font-rye mb-3">
-            <strong className="font-metal uppercase tracking-wider">🔥 Demo:</strong> Esta es una aplicación de demostración.
+            <strong className="font-burned uppercase tracking-wider">🔥 Demo:</strong> Esta es una aplicacion de demostracion.
           </p>
           <div className="bg-diabla-black bg-opacity-50 rounded p-3 border border-diabla-pepperYellow">
-            <p className="text-xs text-diabla-pepperYellow font-metal uppercase tracking-wider mb-2">
+            <p className="text-xs text-diabla-pepperYellow font-burned uppercase tracking-wider mb-2">
               Credenciales de prueba:
             </p>
             <p className="text-sm text-white font-mono">

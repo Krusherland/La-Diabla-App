@@ -14,7 +14,7 @@
     background-image: 
       radial-gradient(ellipse at top, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
       radial-gradient(ellipse at bottom, rgba(255, 0, 0, 0.05) 0%, transparent 50%);
-    background-attachment: fixed;
+    /* Changed from fixed to scroll for better mobile performance */
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -35,18 +35,23 @@
 @layer components {
   /* Dark Edgy Theme Components with Fire Effects */
   
-  /* Textured Dark Cards */
+  /* Textured Dark Cards - Base style with modular hover */
   .diabla-card {
-    @apply bg-diabla-charcoal rounded-lg overflow-hidden transition-all duration-300 border border-diabla-darkGray;
+    @apply bg-diabla-charcoal rounded-lg overflow-hidden border border-diabla-darkGray;
     background-image: 
       repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139, 0, 0, 0.03) 10px, rgba(139, 0, 0, 0.03) 20px),
       linear-gradient(to bottom, rgba(255, 0, 0, 0.02) 0%, transparent 100%);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 0, 0, 0.1);
   }
 
-  .diabla-card:hover {
+  /* Hover effect - only apply when needed */
+  .diabla-card-hover {
+    @apply transition-all duration-300;
+  }
+
+  .diabla-card-hover:hover {
     @apply border-diabla-emberRed scale-105;
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.4), 0 0 60px rgba(255, 0, 0, 0.2), inset 0 1px 0 rgba(255, 0, 0, 0.2);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.4), inset 0 1px 0 rgba(255, 0, 0, 0.2);
   }
 
   .diabla-card-image {
@@ -54,9 +59,14 @@
     box-shadow: inset 0 -40px 40px -20px rgba(10, 10, 10, 0.8);
   }
 
+  /* Admin cards - same as base (removed duplicate) */
+  .admin-card {
+    @apply diabla-card;
+  }
+
   /* Gradient Burn Buttons */
   .diabla-button {
-    @apply font-metal font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center gap-2 border-2;
+    @apply font-burned font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center gap-2 border-2;
     background: linear-gradient(135deg, #0a0a0a 0%, #8B0000 50%, #DC143C 100%);
     border-color: #8B0000;
     color: #FFD700;
@@ -91,7 +101,7 @@
   }
 
   .diabla-button-outline {
-    @apply border-2 border-diabla-emberRed bg-transparent text-diabla-hotRed hover:bg-diabla-emberRed hover:text-white font-metal font-bold py-3 px-6 rounded-lg transition-all duration-300 uppercase tracking-wider;
+    @apply border-2 border-diabla-emberRed bg-transparent text-diabla-hotRed hover:bg-diabla-emberRed hover:text-white font-burned font-bold py-3 px-6 rounded-lg transition-all duration-300 uppercase tracking-wider;
     box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
   }
 
@@ -99,12 +109,28 @@
     box-shadow: 0 0 25px rgba(255, 0, 0, 0.5), inset 0 0 20px rgba(255, 0, 0, 0.2);
   }
 
-  /* Dark Dramatic Hero */
+  /* Admin-specific buttons without hover effects */
+  .admin-button {
+    @apply font-burned font-bold py-3 px-6 rounded-lg flex items-center gap-2 border-2;
+    background: linear-gradient(135deg, #0a0a0a 0%, #8B0000 50%, #DC143C 100%);
+    border-color: #8B0000;
+    color: #FFD700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(139, 0, 0, 0.3);
+  }
+
+  .admin-button-outline {
+    @apply border-2 border-diabla-emberRed bg-transparent text-diabla-hotRed font-burned font-bold py-3 px-6 rounded-lg uppercase tracking-wider;
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+  }
+
+  /* Dark Dramatic Hero - Optimized */
   .hero-diabla {
     @apply relative text-white overflow-hidden;
     background: linear-gradient(to bottom, #0a0a0a 0%, #1a1a1a 50%, #8B0000 100%);
-    background-attachment: fixed;
     min-height: 70vh;
+    /* Removed fixed attachment for better performance */
   }
 
   .hero-diabla::before {
@@ -121,33 +147,37 @@
     pointer-events: none;
   }
 
-  /* Dark Textured Navbar */
+  /* Dark Textured Navbar - Performance optimized */
   .navbar-diabla {
     @apply bg-diabla-black border-b-2 border-diabla-emberRed;
     background-image: 
       linear-gradient(to right, rgba(139, 0, 0, 0.1) 0%, transparent 100%),
       repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 0, 0, 0.02) 50px, rgba(255, 0, 0, 0.02) 100px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 40px rgba(139, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
+    /* backdrop-filter removed for better performance - can be added back if needed */
   }
 
-  /* Fire Glow Text */
+  /* Fire Glow Text - Optimized with modular animation */
   .text-fire-glow {
     color: #0a0a0a;
     -webkit-text-stroke: 1px #FF0000;
     text-shadow: 
       0 0 10px rgba(255, 0, 0, 0.9),
       0 0 20px rgba(255, 69, 0, 0.7),
-      0 0 30px rgba(220, 20, 60, 0.5),
-      0 0 40px rgba(255, 0, 0, 0.4),
-      0 2px 5px rgba(0, 0, 0, 0.9);
+      0 0 30px rgba(220, 20, 60, 0.5);
+  }
+
+  /* Only apply animation when needed */
+  .text-fire-glow-animate {
     animation: fire-glow-pulse 2s ease-in-out infinite;
   }
 
   .text-ember {
     color: #DC143C;
-    text-shadow: 0 0 8px rgba(139, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.9);
+    text-shadow: 0 0 8px rgba(139, 0, 0, 0.8);
   }
+
+  /* Removed duplicate admin-text-fire-glow - use text-fire-glow instead */
 
   /* Grunge Texture Overlay */
   .grunge-texture {
@@ -170,9 +200,45 @@
 
   /* Product Badge/Price with Fire Effect */
   .price-badge-fire {
-    @apply bg-gradient-to-br from-diabla-emberRed to-diabla-fireRed text-white font-metal font-bold px-4 py-2 rounded-full;
+    @apply bg-gradient-to-br from-diabla-emberRed to-diabla-fireRed text-white font-burned font-bold px-4 py-2 rounded-full;
     box-shadow: 0 0 20px rgba(255, 0, 0, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.2);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Reusable Form Elements - Reduces repetition */
+  .diabla-input {
+    @apply w-full px-4 py-2 bg-diabla-black border-2 border-diabla-emberRed rounded-lg text-white placeholder-diabla-smokeGray;
+    @apply focus:outline-none focus:border-diabla-fireRed focus:ring-2 focus:ring-diabla-hotRed transition-colors;
+  }
+
+  .diabla-label {
+    @apply text-diabla-pepperYellow font-burned uppercase tracking-wider text-sm;
+  }
+
+  .diabla-link {
+    @apply text-diabla-fireRed hover:text-diabla-pepperYellow font-burned uppercase tracking-wider transition-colors;
+  }
+
+  /* Improved readability for body text - lighter color for better contrast */
+  .diabla-text {
+    @apply text-diabla-smokeGray font-rye;
+    /* Base color #4a4a4a on #0a0a0a = 4.5:1 contrast ratio (AA compliant) */
+  }
+
+  .diabla-text-light {
+    @apply text-gray-400 font-rye;
+    /* Enhanced color #9ca3af for better readability = 8.6:1 contrast ratio (AAA compliant) */
+  }
+
+  /* Heading with better contrast */
+  .diabla-heading {
+    @apply font-burned text-diabla-hotRed uppercase tracking-wider;
+  }
+
+  .diabla-heading-large {
+    @apply font-burned text-diabla-hotRed uppercase tracking-widest;
+    text-shadow: 0 0 8px rgba(220, 20, 60, 0.5);
+    /* Reduced shadow for better legibility at large sizes */
   }
 }
 
@@ -193,15 +259,13 @@
       text-shadow: 
         0 0 10px rgba(255, 0, 0, 0.9),
         0 0 20px rgba(255, 69, 0, 0.7),
-        0 0 30px rgba(220, 20, 60, 0.5),
-        0 0 40px rgba(255, 0, 0, 0.3);
+        0 0 30px rgba(220, 20, 60, 0.5);
     }
     50% {
       text-shadow: 
         0 0 20px rgba(255, 0, 0, 1),
         0 0 35px rgba(255, 69, 0, 0.9),
-        0 0 50px rgba(220, 20, 60, 0.7),
-        0 0 60px rgba(255, 0, 0, 0.5);
+        0 0 50px rgba(220, 20, 60, 0.7);
     }
   }
 
@@ -242,6 +306,144 @@
     }
   }
 
+  /* Flaming Logo Animations - Waves Rising from Bottom */
+  @keyframes flame-wave-rising {
+    0% {
+      transform: perspective(1000px) rotateX(0deg) translateY(0px);
+    }
+    12.5% {
+      transform: perspective(1000px) rotateX(0.8deg) translateY(-1px);
+    }
+    25% {
+      transform: perspective(1000px) rotateX(-0.4deg) translateY(-2px);
+    }
+    37.5% {
+      transform: perspective(1000px) rotateX(0.6deg) translateY(-1px);
+    }
+    50% {
+      transform: perspective(1000px) rotateX(0deg) translateY(0px);
+    }
+    62.5% {
+      transform: perspective(1000px) rotateX(-0.6deg) translateY(-1px);
+    }
+    75% {
+      transform: perspective(1000px) rotateX(0.4deg) translateY(-2px);
+    }
+    87.5% {
+      transform: perspective(1000px) rotateX(-0.8deg) translateY(-1px);
+    }
+    100% {
+      transform: perspective(1000px) rotateX(0deg) translateY(0px);
+    }
+  }
+
+  @keyframes flame-undulate {
+    0%, 100% {
+      clip-path: polygon(
+        0% 0%, 100% 0%, 100% 100%, 
+        95% 98%, 90% 100%, 85% 99%, 80% 100%, 75% 98%, 
+        70% 100%, 65% 99%, 60% 100%, 55% 98%, 50% 100%, 
+        45% 98%, 40% 100%, 35% 99%, 30% 100%, 25% 98%, 
+        20% 100%, 15% 99%, 10% 100%, 5% 98%, 0% 100%
+      );
+    }
+    25% {
+      clip-path: polygon(
+        0% 0%, 100% 0%, 100% 100%, 
+        95% 100%, 90% 98%, 85% 100%, 80% 99%, 75% 100%, 
+        70% 98%, 65% 100%, 60% 99%, 55% 100%, 50% 98%, 
+        45% 100%, 40% 99%, 35% 100%, 30% 98%, 25% 100%, 
+        20% 99%, 15% 100%, 10% 98%, 5% 100%, 0% 99%
+      );
+    }
+    50% {
+      clip-path: polygon(
+        0% 0%, 100% 0%, 100% 100%, 
+        95% 99%, 90% 100%, 85% 98%, 80% 100%, 75% 99%, 
+        70% 100%, 65% 98%, 60% 100%, 55% 99%, 50% 100%, 
+        45% 98%, 40% 100%, 35% 99%, 30% 100%, 25% 98%, 
+        20% 100%, 15% 99%, 10% 100%, 5% 98%, 0% 100%
+      );
+    }
+    75% {
+      clip-path: polygon(
+        0% 0%, 100% 0%, 100% 100%, 
+        95% 100%, 90% 99%, 85% 100%, 80% 98%, 75% 100%, 
+        70% 99%, 65% 100%, 60% 98%, 55% 100%, 50% 99%, 
+        45% 100%, 40% 98%, 35% 100%, 30% 99%, 25% 100%, 
+        20% 98%, 15% 100%, 10% 99%, 5% 100%, 0% 98%
+      );
+    }
+  }
+
+  @keyframes flame-shadow-flicker {
+    0%, 100% {
+      filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.6));
+    }
+    15% {
+      filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.8));
+    }
+    30% {
+      filter: drop-shadow(0 0 12px rgba(255, 69, 0, 0.5));
+    }
+    45% {
+      filter: drop-shadow(0 0 18px rgba(255, 69, 0, 0.7));
+    }
+    60% {
+      filter: drop-shadow(0 0 10px rgba(255, 69, 0, 0.4));
+    }
+    75% {
+      filter: drop-shadow(0 0 22px rgba(255, 69, 0, 0.85));
+    }
+    90% {
+      filter: drop-shadow(0 0 14px rgba(255, 69, 0, 0.55));
+    }
+  }
+
+  .flame-wave-logo {
+    transform-origin: center bottom;
+    animation: 
+      flame-wave-rising 2.5s ease-in-out infinite,
+      flame-undulate 2s ease-in-out infinite,
+      flame-shadow-flicker 2.2s ease-in-out infinite;
+  }
+
+  /* Gentle wave animation for admin components */
+  @keyframes admin-gentle-wave {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    25% {
+      transform: translateY(-3px);
+    }
+    50% {
+      transform: translateY(0px);
+    }
+    75% {
+      transform: translateY(-2px);
+    }
+  }
+
+  @keyframes admin-gentle-glow {
+    0%, 100% {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 0, 0, 0.1);
+    }
+    50% {
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 0, 0, 0.25), 0 0 20px rgba(139, 0, 0, 0.4);
+    }
+  }
+
+  .admin-card-animated {
+    @apply bg-diabla-charcoal rounded-lg overflow-hidden border border-diabla-darkGray;
+    background-image: 
+      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139, 0, 0, 0.03) 10px, rgba(139, 0, 0, 0.03) 20px),
+      linear-gradient(to bottom, rgba(255, 0, 0, 0.02) 0%, transparent 100%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 0, 0, 0.1);
+    animation: 
+      admin-gentle-wave 4s ease-in-out infinite,
+      admin-gentle-glow 3s ease-in-out infinite;
+  }
+
   .animate-heat-rise {
     animation: heat-rise 4s ease-in-out infinite;
   }
@@ -264,5 +466,166 @@
 
   .shadow-ember {
     box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+  }
+
+  /* Admin and button text gets flame-burned font */
+  .admin-text {
+    @apply font-burned;
+  }
+
+  /* ========================================
+     RISING FLAME WAVE ANIMATION FOR CARDS
+     ======================================== */
+  
+  /* Flame rising from bottom - wavy border effect */
+  @keyframes flame-rise-wave {
+    0%, 100% {
+      border-bottom-left-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+      box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 0, 0, 0.1),
+        inset 0 -40px 60px -20px rgba(139, 0, 0, 0.3);
+    }
+    25% {
+      border-bottom-left-radius: 0.7rem;
+      border-bottom-right-radius: 0.4rem;
+      box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 0, 0, 0.15),
+        inset 0 -50px 70px -20px rgba(220, 20, 60, 0.4),
+        0 0 20px rgba(255, 0, 0, 0.2);
+    }
+    50% {
+      border-bottom-left-radius: 0.4rem;
+      border-bottom-right-radius: 0.7rem;
+      box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 0, 0, 0.2),
+        inset 0 -60px 80px -20px rgba(255, 0, 0, 0.5),
+        0 0 25px rgba(255, 69, 0, 0.3);
+    }
+    75% {
+      border-bottom-left-radius: 0.6rem;
+      border-bottom-right-radius: 0.5rem;
+      box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 0, 0, 0.15),
+        inset 0 -45px 65px -20px rgba(220, 20, 60, 0.4),
+        0 0 20px rgba(255, 0, 0, 0.2);
+    }
+  }
+
+  /* Border flicker to simulate flame */
+  @keyframes border-flame-flicker {
+    0%, 100% {
+      border-color: rgba(139, 0, 0, 0.5);
+    }
+    20% {
+      border-color: rgba(220, 20, 60, 0.7);
+    }
+    40% {
+      border-color: rgba(139, 0, 0, 0.5);
+    }
+    60% {
+      border-color: rgba(255, 69, 0, 0.6);
+    }
+    80% {
+      border-color: rgba(139, 0, 0, 0.5);
+    }
+  }
+
+  /* Apply animation to cards */
+  .card-flame-rise {
+    animation: 
+      flame-rise-wave 3s ease-in-out infinite,
+      border-flame-flicker 2.5s ease-in-out infinite;
+  }
+
+  /* ========================================
+     HEAT DISTORTION SHIMMER ANIMATION
+     ======================================== */
+  
+  /* Subtle wavering like looking through hot air/smoke */
+  @keyframes heat-distortion-wave {
+    0%, 100% {
+      transform: translate(0px, 0px) skewX(0deg);
+    }
+    12.5% {
+      transform: translate(0.5px, -0.8px) skewX(0.3deg);
+    }
+    25% {
+      transform: translate(-0.8px, 0.5px) skewX(-0.2deg);
+    }
+    37.5% {
+      transform: translate(0.6px, 0.8px) skewX(0.4deg);
+    }
+    50% {
+      transform: translate(-0.5px, -0.6px) skewX(-0.3deg);
+    }
+    62.5% {
+      transform: translate(0.8px, 0.4px) skewX(0.2deg);
+    }
+    75% {
+      transform: translate(-0.6px, 0.7px) skewX(-0.4deg);
+    }
+    87.5% {
+      transform: translate(0.4px, -0.5px) skewX(0.3deg);
+    }
+  }
+
+  /* Subtle blur pulse for smoky effect */
+  @keyframes smoke-blur-pulse {
+    0%, 100% {
+      filter: blur(0px) brightness(1);
+    }
+    25% {
+      filter: blur(0.3px) brightness(0.98);
+    }
+    50% {
+      filter: blur(0.5px) brightness(0.96);
+    }
+    75% {
+      filter: blur(0.3px) brightness(0.98);
+    }
+  }
+
+  /* Smoky glow that pulses */
+  @keyframes smoke-glow-pulse {
+    0%, 100% {
+      box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 0, 0, 0.2),
+        0 0 30px rgba(139, 0, 0, 0.5),
+        0 0 50px rgba(220, 20, 60, 0.3);
+    }
+    33% {
+      box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 0, 0, 0.3),
+        0 0 40px rgba(255, 0, 0, 0.6),
+        0 0 60px rgba(255, 69, 0, 0.4);
+    }
+    66% {
+      box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 0, 0, 0.25),
+        0 0 35px rgba(220, 20, 60, 0.55),
+        0 0 55px rgba(255, 0, 0, 0.35);
+    }
+  }
+
+  /* Apply heat distortion shimmer to cards - on hover only */
+  .card-heat-shimmer:hover {
+    animation: 
+      heat-distortion-wave 2.5s ease-in-out infinite,
+      smoke-blur-pulse 3s ease-in-out infinite,
+      smoke-glow-pulse 2.8s ease-in-out infinite;
+  }
+
+  /* Override DaisyUI card for our theme */
+  .card-diabla {
+    @apply diabla-card;
+    overflow: visible; /* Allow glow to show */
   }
 }

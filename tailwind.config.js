@@ -21,10 +21,10 @@ export default {
         },
       },
       fontFamily: {
-        'metal': ['Metal Mania', 'cursive'],      // Main edgy font
-        'burned': ['Rubik Burned', 'cursive'],    // Fire burned effect
-        'rye': ['Rye', 'cursive'],                // Grunge western style
-        'creepster': ['Creepster', 'cursive'],    // Horror/dark style
+        'metal': ['Metal Mania', 'cursive', 'system-ui'],      // Main edgy font
+        'burned': ['Rubik Burned', 'Metal Mania', 'cursive', 'system-ui'],    // Fire burned effect
+        'rye': ['Rye', 'serif', 'system-ui'],                // Grunge western style
+        'creepster': ['Creepster', 'cursive', 'system-ui'],    // Horror/dark style
       },
       backgroundImage: {
         'fire-gradient': 'linear-gradient(to top, #0a0a0a, #8B0000, #FF0000)',

@@ -23,12 +23,12 @@ const Register = () => {
 
     // Validation
     if (formData.password !== formData.confirmPassword) {
-      setError('Las contraseñas no coinciden');
+      setError('Las contrasenas no coinciden');
       return;
     }
 
     if (formData.password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres');
+      setError('La contrasena debe tener al menos 6 caracteres');
       return;
     }
 
@@ -54,12 +54,12 @@ const Register = () => {
     <div className="min-h-screen flex items-center justify-center bg-diabla-black py-12 px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <h1 className="text-5xl font-metal font-bold text-fire-glow mb-4 uppercase tracking-wider animate-pulse">
+          <h1 className="text-5xl font-burned font-bold text-fire-glow mb-4 uppercase tracking-wider animate-pulse">
             🔥 LA DIABLA
           </h1>
           <h2 className="text-3xl font-burned text-diabla-pepperYellow mb-2">Crear Cuenta</h2>
           <p className="text-diabla-smokeGray mt-2 font-rye">
-            Únete a nosotros y disfruta de nuestras pizzas
+            Unete a nosotros y disfruta de nuestras pizzas
           </p>
         </div>
 
@@ -87,14 +87,14 @@ const Register = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="label">
-                <span className="text-diabla-pepperYellow font-metal uppercase tracking-wider text-sm">Nombre completo *</span>
+                <span className="text-diabla-pepperYellow font-burned uppercase tracking-wider text-sm">Nombre completo *</span>
               </label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="input w-full bg-diabla-black border-2 border-diabla-emberRed text-white focus:outline-none focus:border-diabla-fireRed focus:ring-2 focus:ring-diabla-hotRed placeholder-diabla-smokeGray"
-                placeholder="Juan Pérez"
+                placeholder="Juan Perez"
                 required
                 autoFocus
               />
@@ -102,7 +102,7 @@ const Register = () => {
 
             <div>
               <label className="label">
-                <span className="text-diabla-pepperYellow font-metal uppercase tracking-wider text-sm">Email *</span>
+                <span className="text-diabla-pepperYellow font-burned uppercase tracking-wider text-sm">Email *</span>
               </label>
               <input
                 type="email"
@@ -116,7 +116,7 @@ const Register = () => {
 
             <div>
               <label className="label">
-                <span className="text-diabla-pepperYellow font-metal uppercase tracking-wider text-sm">Teléfono</span>
+                <span className="text-diabla-pepperYellow font-burned uppercase tracking-wider text-sm">Telefono</span>
               </label>
               <input
                 type="tel"
@@ -129,7 +129,7 @@ const Register = () => {
 
             <div>
               <label className="label">
-                <span className="text-diabla-pepperYellow font-metal uppercase tracking-wider text-sm">Dirección</span>
+                <span className="text-diabla-pepperYellow font-burned uppercase tracking-wider text-sm">Direccion</span>
               </label>
               <input
                 type="text"
@@ -142,7 +142,7 @@ const Register = () => {
 
             <div>
               <label className="label">
-                <span className="text-diabla-pepperYellow font-metal uppercase tracking-wider text-sm">Contraseña *</span>
+                <span className="text-diabla-pepperYellow font-burned uppercase tracking-wider text-sm">Contrasena *</span>
               </label>
               <input
                 type="password"
@@ -155,14 +155,14 @@ const Register = () => {
               />
               <label className="label">
                 <span className="text-diabla-smokeGray text-xs font-rye">
-                  Mínimo 6 caracteres
+                  Minimo 6 caracteres
                 </span>
               </label>
             </div>
 
             <div>
               <label className="label">
-                <span className="text-diabla-pepperYellow font-metal uppercase tracking-wider text-sm">Confirmar contraseña *</span>
+                <span className="text-diabla-pepperYellow font-burned uppercase tracking-wider text-sm">Confirmar contrasena *</span>
               </label>
               <input
                 type="password"
@@ -187,9 +187,9 @@ const Register = () => {
 
           <div className="mt-6 text-center">
             <p className="text-diabla-smokeGray font-rye">
-              ¿Ya tienes una cuenta?{' '}
-              <Link to="/login" className="text-diabla-fireRed hover:text-diabla-pepperYellow font-metal uppercase tracking-wider transition-colors">
-                Inicia sesión aquí
+              Ya tienes una cuenta?{' '}
+              <Link to="/login" className="text-diabla-fireRed hover:text-diabla-pepperYellow font-burned uppercase tracking-wider transition-colors">
+                Inicia sesion aqui
               </Link>
             </p>
           </div>
@@ -203,7 +203,7 @@ const Register = () => {
 
         <div className="mt-6 bg-gradient-to-r from-diabla-emberRed to-diabla-hotRed border-2 border-diabla-fireRed rounded-lg p-4 shadow-fire">
           <p className="text-sm text-white font-rye">
-            <strong className="font-metal uppercase tracking-wider">🔥 Demo:</strong> Esta es una aplicación de demostración.
+            <strong className="font-burned uppercase tracking-wider">🔥 Demo:</strong> Esta es una aplicacion de demostracion.
             El backend debe estar configurado para que el registro funcione.
           </p>
         </div>

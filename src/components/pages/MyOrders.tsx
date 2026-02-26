@@ -49,7 +49,7 @@ const MyOrders = () => {
   const getStatusText = (status: OrderStatus) => {
     const texts = {
       pending: 'Pendiente',
-      preparing: 'En Preparación',
+      preparing: 'En Preparacion',
       ready: 'Listo para Entrega',
       delivered: 'Entregado',
       cancelled: 'Cancelado',
@@ -59,8 +59,8 @@ const MyOrders = () => {
 
   const getStatusIcon = (status: OrderStatus) => {
     const icons = {
-      pending: '⏳',
-      preparing: '👨‍🍳🔥',
+      pending: '⏰',
+      preparing: '🔥',
       ready: '✅',
       delivered: '🚀',
       cancelled: '❌',
@@ -82,7 +82,7 @@ const MyOrders = () => {
         <div className="text-center">
           <ErrorMessage message={error} />
           <Link to="/menu" className="diabla-button mt-6">
-            Volver al Menú
+            Volver al Men�
           </Link>
         </div>
       </div>
@@ -94,7 +94,7 @@ const MyOrders = () => {
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
         <div className="mb-12">
-          <h1 className="text-5xl font-metal font-bold mb-4 text-fire-glow uppercase tracking-widest">
+          <h1 className="text-5xl font-burned font-bold mb-4 text-fire-glow uppercase tracking-widest">
             🔥 MIS PEDIDOS
           </h1>
           <p className="text-diabla-flameOrange font-burned text-xl">
@@ -105,15 +105,15 @@ const MyOrders = () => {
         {/* Orders List */}
         {orders.length === 0 ? (
           <div className="diabla-card p-12 text-center">
-            <div className="text-7xl mb-6">🍕</div>
-            <h2 className="text-3xl font-metal text-diabla-hotRed mb-4 uppercase">
-              No tienes pedidos aún
+            <div className="text-7xl mb-6">📦</div>
+            <h2 className="text-3xl font-burned text-diabla-hotRed mb-4 uppercase">
+              No tienes pedidos aun
             </h2>
             <p className="text-diabla-smokeGray font-rye mb-6">
-              ¿Qué estás esperando? ¡Pide una pizza diabólicamente deliciosa!
+              Que estas esperando? Pide una pizza diabolicamente deliciosa!
             </p>
             <Link to="/menu" className="diabla-button">
-              🔥 Ver Menú
+              🔥 Ver Menu
             </Link>
           </div>
         ) : (
@@ -132,10 +132,10 @@ const MyOrders = () => {
                     {/* Order Info */}
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-2xl font-metal text-diabla-hotRed uppercase">
+                        <h3 className="text-2xl font-burned text-diabla-hotRed uppercase">
                           Pedido #{order.id}
                         </h3>
-                        <span className={`px-3 py-1 rounded-full text-sm font-metal uppercase ${getStatusBadge(order.status)}`}>
+                        <span className={`px-3 py-1 rounded-full text-sm font-burned uppercase ${getStatusBadge(order.status)}`}>
                           {getStatusIcon(order.status)} {getStatusText(order.status)}
                         </span>
                       </div>
@@ -191,7 +191,7 @@ const MyOrders = () => {
                           />
                         ))}
                         {order.items.length > 3 && (
-                          <div className="w-10 h-10 rounded-full border-2 border-diabla-charcoal bg-diabla-emberRed flex items-center justify-center text-white font-metal text-xs">
+                          <div className="w-10 h-10 rounded-full border-2 border-diabla-charcoal bg-diabla-emberRed flex items-center justify-center text-white font-burned text-xs">
                             +{order.items.length - 3}
                           </div>
                         )}
@@ -205,7 +205,7 @@ const MyOrders = () => {
                   <div className="border-t-2 border-diabla-darkGray p-6 bg-diabla-charcoal animate-fade-in">
                     {/* Tracking Timeline */}
                     <div className="mb-8">
-                      <h4 className="text-xl font-metal text-diabla-hotRed uppercase mb-6">
+                      <h4 className="text-xl font-burned text-diabla-hotRed uppercase mb-6">
                         🔥 Estado del Pedido
                       </h4>
                       <div className="flex items-center justify-between relative">
@@ -224,8 +224,8 @@ const MyOrders = () => {
 
                         {/* Timeline Steps */}
                         {[
-                          { status: 'pending', label: 'Recibido', icon: '📝' },
-                          { status: 'preparing', label: 'Preparando', icon: '👨‍🍳' },
+                          { status: 'pending', label: 'Recibido', icon: '⏰' },
+                          { status: 'preparing', label: 'Preparando', icon: '🔥' },
                           { status: 'ready', label: 'Listo', icon: '✅' },
                           { status: 'delivered', label: 'Entregado', icon: '🚀' }
                         ].map((step, idx) => {
@@ -235,7 +235,7 @@ const MyOrders = () => {
                           
                           return (
                             <div key={idx} className="flex flex-col items-center relative z-10">
-                              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-metal text-sm transition-all ${
+                              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-burned text-sm transition-all ${
                                 isActive 
                                   ? 'bg-diabla-fireRed text-white shadow-fire scale-110' 
                                   : isPassed
@@ -257,7 +257,7 @@ const MyOrders = () => {
 
                     {/* Order Items */}
                     <div className="mb-6">
-                      <h4 className="text-xl font-metal text-diabla-hotRed uppercase mb-4">
+                      <h4 className="text-xl font-burned text-diabla-hotRed uppercase mb-4">
                         📦 Tu Pedido
                       </h4>
                       <div className="space-y-3">
@@ -276,7 +276,7 @@ const MyOrders = () => {
                               className="w-16 h-16 object-cover rounded-lg shadow-ember"
                             />
                             <div className="flex-1">
-                              <p className="font-metal text-diabla-hotRed uppercase">{item.productName}</p>
+                              <p className="font-burned text-diabla-hotRed uppercase">{item.productName}</p>
                               <p className="text-sm text-diabla-smokeGray font-rye">
                                 {item.quantity} x ${item.price.toFixed(2)}
                               </p>
@@ -292,15 +292,15 @@ const MyOrders = () => {
                     {/* Delivery Info */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div className="p-4 bg-diabla-black rounded-lg border border-diabla-darkGray">
-                        <h5 className="text-sm font-metal text-diabla-flameOrange uppercase mb-2">
-                          📍 Dirección de Entrega
+                        <h5 className="text-sm font-burned text-diabla-flameOrange uppercase mb-2">
+                          📍 Direccion de Entrega
                         </h5>
                         <p className="text-diabla-smokeGray font-rye text-sm">
                           {order.deliveryAddress}
                         </p>
                       </div>
                       <div className="p-4 bg-diabla-black rounded-lg border border-diabla-darkGray">
-                        <h5 className="text-sm font-metal text-diabla-flameOrange uppercase mb-2">
+                        <h5 className="text-sm font-burned text-diabla-flameOrange uppercase mb-2">
                           📞 Contacto
                         </h5>
                         <p className="text-diabla-smokeGray font-rye text-sm">
@@ -315,7 +315,7 @@ const MyOrders = () => {
                     {/* Order Notes */}
                     {order.notes && (
                       <div className="p-4 bg-diabla-black rounded-lg border border-diabla-darkGray mb-6">
-                        <h5 className="text-sm font-metal text-diabla-flameOrange uppercase mb-2">
+                        <h5 className="text-sm font-burned text-diabla-flameOrange uppercase mb-2">
                           📝 Notas del Pedido
                         </h5>
                         <p className="text-diabla-smokeGray font-rye text-sm">
@@ -336,7 +336,7 @@ const MyOrders = () => {
                           <span>${order.tax.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between items-center text-xl pt-2 border-t border-diabla-darkGray">
-                          <span className="font-metal text-diabla-hotRed uppercase">Total:</span>
+                          <span className="font-burned text-diabla-hotRed uppercase">Total:</span>
                           <span className="price-badge-fire text-2xl">
                             ${order.total.toFixed(2)}
                           </span>
