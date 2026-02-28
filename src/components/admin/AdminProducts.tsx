@@ -175,45 +175,50 @@ const AdminProducts = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-diabla-darkGray pb-6">
         <div>
-          <h1 className="text-2xl md:text-4xl font-burned font-bold text-fire-glow uppercase tracking-widest">
-            GESTIÓN DE PRODUCTOS
+          <h1 className="text-2xl md:text-3xl font-rye font-bold text-gray-100 uppercase tracking-wider">
+            Gestión de Productos
           </h1>
-          <p className="text-diabla-flameOrange font-burned mt-1">
-            Administra tu arsenal de pizzas 🔥
+          <p className="text-gray-400 font-rye text-sm mt-1">
+            Administra el catálogo de productos
           </p>
         </div>
         <button
           onClick={handleOpenAddModal}
-          className="admin-button"
+          className="flex items-center gap-2 px-5 py-2.5 bg-diabla-emberRed hover:bg-diabla-fireRed text-white border border-diabla-emberRed hover:border-diabla-fireRed rounded-lg font-rye text-sm uppercase tracking-wider transition-all hover:scale-[1.02]"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
-          Agregar Producto
+          Nuevo Producto
         </button>
       </div>
 
       {/* Filters */}
-      <div className="admin-card-animated p-6">
+      <div className="bg-gradient-to-br from-diabla-charcoal to-diabla-darkGray p-5 rounded-lg border border-diabla-darkGray">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
           <div className="flex-1">
-            <input
-              type="text"
-              placeholder="Buscar productos..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-rye focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
-            />
+            <div className="relative">
+              <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Buscar por nombre o descripción..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 bg-diabla-black border border-diabla-darkGray rounded-lg text-gray-300 font-rye text-sm focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/30 transition-colors"
+              />
+            </div>
           </div>
 
           {/* Category Filter */}
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-burned focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
+            className="px-4 py-2.5 bg-diabla-black border border-diabla-darkGray rounded-lg text-gray-300 font-rye text-sm focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/30 transition-colors"
           >
             <option value="all">Todas las Categorías</option>
             {categories.map((cat) => (
@@ -223,89 +228,95 @@ const AdminProducts = () => {
             ))}
           </select>
         </div>
+        <div className="mt-3 text-sm text-gray-500 font-rye">
+          Mostrando {filteredProducts.length} de {products.length} productos
+        </div>
       </div>
 
       {/* Products Table */}
-      <div className="admin-card-animated overflow-hidden">
+      <div className="bg-gradient-to-br from-diabla-charcoal to-diabla-darkGray rounded-lg border border-diabla-darkGray overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-diabla-black border-b border-diabla-darkGray">
+            <thead className="bg-diabla-black/50 border-b-2 border-diabla-darkGray">
               <tr>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
                   Imagen
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
-                  Nombre
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
+                  Producto
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
                   Categoría
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
                   Precio
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
                   Estado
                 </th>
-                <th className="px-4 py-4 text-right text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-right text-xs font-rye uppercase tracking-wider text-gray-400">
                   Acciones
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-diabla-darkGray">
+            <tbody className="divide-y divide-diabla-darkGray/50">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-4 py-12 text-center text-diabla-smokeGray font-rye">
-                    No se encontraron productos
+                  <td colSpan={6} className="px-4 py-16 text-center">
+                    <svg className="w-16 h-16 text-gray-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                    </svg>
+                    <p className="text-gray-500 font-rye">No se encontraron productos</p>
                   </td>
                 </tr>
               ) : (
                 filteredProducts.map((product) => (
                   <tr
                     key={product.id}
-                    className=""
+                    className="hover:bg-diabla-black/30 transition-colors"
                   >
                     <td className="px-4 py-4">
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="w-16 h-16 object-cover rounded-lg border border-diabla-darkGray"
+                        className="w-16 h-16 object-cover rounded-lg border border-diabla-darkGray shadow-sm"
                       />
                     </td>
                     <td className="px-4 py-4">
-                      <div className="text-sm">
-                        <div className="font-burned text-diabla-pepperYellow">{product.name}</div>
-                        <div className="text-xs text-diabla-darkGray font-rye line-clamp-1">
+                      <div className="text-sm max-w-xs">
+                        <div className="font-rye text-white mb-1">{product.name}</div>
+                        <div className="text-xs text-gray-500 font-rye line-clamp-2">
                           {product.description}
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
-                      <span className="px-3 py-1 bg-diabla-black text-diabla-flameOrange rounded-full text-xs font-burned uppercase tracking-wider">
+                      <span className="px-3 py-1 bg-orange-500/10 text-orange-500 border border-orange-500/30 rounded-md text-xs font-rye">
                         {product.category}
                       </span>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
-                      <span className="font-burned text-diabla-pepperYellow text-lg">
+                      <span className="font-rye text-white text-base">
                         ${product.price.toFixed(2)}
                       </span>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
                       <span
-                        className={`px-3 py-1 rounded-full text-xs font-burned uppercase tracking-wider ${
+                        className={`px-3 py-1 rounded-md text-xs font-rye border ${
                           product.available
-                            ? 'bg-green-600 text-white'
-                            : 'bg-diabla-smokeGray text-white'
+                            ? 'bg-green-500/10 text-green-500 border-green-500/30'
+                            : 'bg-gray-500/10 text-gray-500 border-gray-500/30'
                         }`}
                       >
                         {product.available ? 'Disponible' : 'No disponible'}
                       </span>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-right">
-                      <div className="flex justify-end gap-2">
+                      <div className="flex justify-end gap-1">
                         <button
                           onClick={() => handleOpenEditModal(product)}
-                          className="text-diabla-pepperYellow p-2"
-                          title="Editar"
+                          className="p-2 text-gray-400 hover:text-yellow-500 hover:bg-yellow-500/10 rounded-lg transition-all"
+                          title="Editar producto"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -313,8 +324,8 @@ const AdminProducts = () => {
                         </button>
                         <button
                           onClick={() => handleOpenDeleteModal(product)}
-                          className="text-diabla-fireRed p-2"
-                          title="Eliminar"
+                          className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all"
+                          title="Eliminar producto"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -332,15 +343,15 @@ const AdminProducts = () => {
 
       {/* Add/Edit Product Modal */}
       {(showAddModal || showEditModal) && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50">
-          <div className="admin-card-animated max-w-2xl w-full max-h-[90vh] flex flex-col">
-            <div className="bg-diabla-charcoal p-6 border-b border-diabla-darkGray flex justify-between items-center">
-              <h2 className="text-2xl font-burned font-bold text-diabla-hotRed uppercase tracking-wider">
-                {showEditModal ? 'Editar Producto' : 'Agregar Producto'}
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-gradient-to-br from-diabla-charcoal to-diabla-darkGray border border-diabla-darkGray rounded-lg max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl">
+            <div className="bg-diabla-black/50 p-6 border-b border-diabla-darkGray flex justify-between items-center">
+              <h2 className="text-xl font-rye font-bold text-gray-100 uppercase tracking-wider">
+                {showEditModal ? 'Editar Producto' : 'Nuevo Producto'}
               </h2>
               <button
                 onClick={handleCloseModals}
-                className="text-diabla-smokeGray"
+                className="text-gray-500 hover:text-gray-300 transition-colors p-1"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -349,23 +360,23 @@ const AdminProducts = () => {
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
-              <div className="p-6 space-y-4 overflow-y-auto flex-1">
+              <div className="p-6 space-y-5 overflow-y-auto flex-1">
                 <div>
-                  <label className="block text-sm font-burned text-diabla-hotRed uppercase tracking-wider mb-2">
-                    Nombre
+                  <label className="block text-sm font-rye text-gray-300 uppercase tracking-wider mb-2">
+                    Nombre del Producto
                   </label>
                   <input
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-rye focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
-                  placeholder="Pizza Diabla Infernal"
+                  className="w-full px-4 py-2.5 bg-diabla-black border border-diabla-darkGray rounded-lg text-gray-300 font-rye text-sm focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/30 transition-colors"
+                  placeholder="Ej: Pizza Diabla Suprema"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-burned text-diabla-hotRed uppercase tracking-wider mb-2">
+                <label className="block text-sm font-rye text-gray-300 uppercase tracking-wider mb-2">
                   Descripción
                 </label>
                 <textarea
@@ -373,15 +384,15 @@ const AdminProducts = () => {
                   rows={3}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-rye focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50 resize-none"
+                  className="w-full px-4 py-2.5 bg-diabla-black border border-diabla-darkGray rounded-lg text-gray-300 font-rye text-sm focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/30 resize-none transition-colors"
                   placeholder="Descripción del producto..."
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-burned text-diabla-hotRed uppercase tracking-wider mb-2">
-                    Precio
+                  <label className="block text-sm font-rye text-gray-300 uppercase tracking-wider mb-2">
+                    Precio (USD)
                   </label>
                   <input
                     type="number"
@@ -390,20 +401,20 @@ const AdminProducts = () => {
                     min="0"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    className="w-full px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-rye focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
+                    className="w-full px-4 py-2.5 bg-diabla-black border border-diabla-darkGray rounded-lg text-gray-300 font-rye text-sm focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/30 transition-colors"
                     placeholder="0.00"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-burned text-diabla-hotRed uppercase tracking-wider mb-2">
+                  <label className="block text-sm font-rye text-gray-300 uppercase tracking-wider mb-2">
                     Categoría
                   </label>
                   <select
                     required
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-burned focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
+                    className="w-full px-4 py-2.5 bg-diabla-black border border-diabla-darkGray rounded-lg text-gray-300 font-rye text-sm focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/30 transition-colors"
                   >
                     <option value="">Seleccionar...</option>
                     {categories.map((cat) => (
@@ -416,48 +427,48 @@ const AdminProducts = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-burned text-diabla-hotRed uppercase tracking-wider mb-2">
-                  URL de Imagen {showEditModal && <span className="text-diabla-smokeGray text-xs">(opcional)</span>}
+                <label className="block text-sm font-rye text-gray-300 uppercase tracking-wider mb-2">
+                  URL de Imagen {showEditModal && <span className="text-gray-500 text-xs normal-case">(dejar vacío para mantener actual)</span>}
                 </label>
                 <input
                   type="text"
                   required={!showEditModal}
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  className="w-full px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-rye focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
-                  placeholder={showEditModal ? "Dejar vacio para mantener imagen actual" : "/images/producto.jpg"}
+                  className="w-full px-4 py-2.5 bg-diabla-black border border-diabla-darkGray rounded-lg text-gray-300 font-rye text-sm focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/30 transition-colors"
+                  placeholder="/images/producto.jpg"
                 />
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 p-4 bg-diabla-black/50 rounded-lg border border-diabla-darkGray">
                 <input
                   type="checkbox"
                   id="available"
                   checked={formData.available}
                   onChange={(e) => setFormData({ ...formData, available: e.target.checked })}
-                  className="w-5 h-5 bg-diabla-black border-2 border-diabla-darkGray rounded focus:ring-2 focus:ring-diabla-emberRed/50"
+                  className="w-5 h-5 bg-diabla-black border-2 border-diabla-darkGray rounded focus:ring-2 focus:ring-diabla-emberRed/50 text-diabla-emberRed"
                 />
-                <label htmlFor="available" className="text-sm font-burned text-diabla-hotRed uppercase tracking-wider cursor-pointer">
-                  Producto disponible
+                <label htmlFor="available" className="text-sm font-rye text-gray-300 cursor-pointer">
+                  Producto disponible para la venta
                 </label>
               </div>
               </div>
 
-              <div className="bg-diabla-charcoal border-t border-diabla-darkGray p-6 flex gap-3">
+              <div className="bg-diabla-black/50 border-t border-diabla-darkGray p-6 flex gap-3">
                 <button
                   type="button"
                   onClick={handleCloseModals}
                   disabled={isSubmitting}
-                  className="flex-1 admin-button-outline justify-center"
+                  className="flex-1 px-5 py-2.5 bg-transparent hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-700 hover:border-gray-600 rounded-lg font-rye text-sm uppercase tracking-wider transition-all"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 admin-button justify-center"
+                  className="flex-1 px-5 py-2.5 bg-diabla-emberRed hover:bg-diabla-fireRed text-white border border-diabla-emberRed hover:border-diabla-fireRed rounded-lg font-rye text-sm uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? 'Guardando...' : showEditModal ? 'Actualizar' : 'Crear'}
+                  {isSubmitting ? 'Guardando...' : showEditModal ? 'Guardar Cambios' : 'Crear Producto'}
                 </button>
               </div>
             </form>
@@ -467,22 +478,22 @@ const AdminProducts = () => {
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && selectedProduct && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50">
-          <div className="admin-card-animated max-w-md w-full">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-gradient-to-br from-diabla-charcoal to-diabla-darkGray border border-diabla-darkGray rounded-lg max-w-md w-full shadow-2xl">
             <div className="p-6">
               <div className="flex items-center justify-center mb-4">
-                <div className="w-16 h-16 bg-diabla-fireRed rounded-full flex items-center justify-center">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-16 h-16 bg-red-500/20 border-2 border-red-500/50 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
                 </div>
               </div>
 
-              <h2 className="text-2xl font-burned font-bold text-diabla-hotRed uppercase tracking-wider text-center mb-2">
+              <h2 className="text-xl font-rye font-bold text-gray-100 uppercase tracking-wider text-center mb-2">
                 Confirmar Eliminación
               </h2>
-              <p className="text-center text-diabla-smokeGray font-rye mb-6">
-                ¿Estás seguro que deseas eliminar <span className="text-diabla-pepperYellow font-burned">{selectedProduct.name}</span>? Esta acción no se puede deshacer.
+              <p className="text-center text-gray-400 font-rye mb-6">
+                ¿Estás seguro que deseas eliminar <span className="text-white font-rye">{selectedProduct.name}</span>? Esta acción no se puede deshacer.
               </p>
 
               <div className="flex gap-3">
@@ -490,7 +501,7 @@ const AdminProducts = () => {
                   type="button"
                   onClick={handleCloseModals}
                   disabled={isSubmitting}
-                  className="flex-1 admin-button-outline justify-center"
+                  className="flex-1 px-5 py-2.5 bg-transparent hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-700 hover:border-gray-600 rounded-lg font-rye text-sm uppercase tracking-wider transition-all"
                 >
                   Cancelar
                 </button>
@@ -498,7 +509,7 @@ const AdminProducts = () => {
                   type="button"
                   onClick={handleDelete}
                   disabled={isSubmitting}
-                  className="flex-1 bg-diabla-fireRed text-white font-burned font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2"
+                  className="flex-1 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white border border-red-600 hover:border-red-700 rounded-lg font-rye text-sm uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? 'Eliminando...' : 'Eliminar'}
                 </button>

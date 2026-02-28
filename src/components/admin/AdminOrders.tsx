@@ -82,11 +82,11 @@ const AdminOrders = () => {
 
   const getStatusBadge = (status: OrderStatus) => {
     const badges = {
-      pending: 'bg-diabla-pepperYellow text-diabla-black',
-      preparing: 'bg-diabla-flameOrange text-white',
-      ready: 'bg-green-600 text-white',
-      delivered: 'bg-diabla-fireRed text-white',
-      cancelled: 'bg-diabla-smokeGray text-white',
+      pending: 'bg-yellow-500/10 text-yellow-600 border border-yellow-500/30',
+      preparing: 'bg-orange-500/10 text-orange-600 border border-orange-500/30',
+      ready: 'bg-green-500/10 text-green-600 border border-green-500/30',
+      delivered: 'bg-red-500/10 text-red-600 border border-red-500/30',
+      cancelled: 'bg-gray-500/10 text-gray-500 border border-gray-500/30',
     };
     return badges[status] || 'bg-gray-600 text-white';
   };
@@ -108,18 +108,18 @@ const AdminOrders = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-diabla-darkGray pb-6">
         <div>
-          <h1 className="text-2xl md:text-4xl font-burned font-bold text-fire-glow uppercase tracking-widest">
-            GESTIÓN DE PEDIDOS
+          <h1 className="text-2xl md:text-3xl font-rye font-bold text-gray-100 uppercase tracking-wider">
+            Gestión de Pedidos
           </h1>
-          <p className="text-diabla-flameOrange font-burned mt-1">
-            Administra los pedidos en tiempo real 🔥
+          <p className="text-gray-400 font-rye text-sm mt-1">
+            Administra y actualiza el estado de los pedidos
           </p>
         </div>
         <button
           onClick={handleExportOrders}
-          className="admin-button-outline"
+          className="flex items-center gap-2 px-5 py-2.5 bg-transparent hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-700 hover:border-gray-600 rounded-lg font-rye text-sm uppercase tracking-wider transition-all"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -129,146 +129,157 @@ const AdminOrders = () => {
       </div>
 
       {/* Filters */}
-      <div className="admin-card-animated p-6">
-        <div className="flex flex-col md:flex-row gap-4">
+      <div className="bg-gradient-to-br from-diabla-charcoal to-diabla-darkGray p-5 rounded-lg border border-diabla-darkGray">
+        <div className="flex flex-col lg:flex-row gap-4">
           {/* Search */}
           <div className="flex-1">
-            <input
-              type="text"
-              placeholder="Buscar por cliente, email o ID..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 bg-diabla-black border border-diabla-darkGray rounded-lg text-diabla-smokeGray font-rye focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/50"
-            />
+            <div className="relative">
+              <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Buscar por cliente, email o ID..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 bg-diabla-black border border-diabla-darkGray rounded-lg text-gray-300 font-rye text-sm focus:border-diabla-emberRed focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/30 transition-colors"
+              />
+            </div>
           </div>
 
           {/* Status Filter Buttons */}
-          <div className="flex flex-wrap gap-2 justify-start">
+          <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setFilterStatus('all')}
-              className={`px-4 py-2 rounded-lg font-burned text-sm uppercase tracking-wider ${
+              className={`px-4 py-2 rounded-lg font-rye text-xs uppercase tracking-wider transition-all ${
                 filterStatus === 'all'
-                  ? 'bg-diabla-fireRed text-white'
-                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray'
+                  ? 'bg-diabla-emberRed text-white border border-diabla-emberRed'
+                  : 'bg-diabla-black text-gray-400 border border-diabla-darkGray hover:border-gray-600'
               }`}
             >
               Todos ({orders.length})
             </button>
             <button
               onClick={() => setFilterStatus('pending')}
-              className={`px-4 py-2 rounded-lg font-burned text-sm uppercase tracking-wider ${
+              className={`px-4 py-2 rounded-lg font-rye text-xs uppercase tracking-wider transition-all ${
                 filterStatus === 'pending'
-                  ? 'bg-diabla-pepperYellow text-diabla-black'
-                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray'
+                  ? 'bg-yellow-500 text-white border border-yellow-500'
+                  : 'bg-diabla-black text-gray-400 border border-diabla-darkGray hover:border-gray-600'
               }`}
             >
               Pendientes ({orders.filter(o => o.status === 'pending').length})
             </button>
             <button
               onClick={() => setFilterStatus('preparing')}
-              className={`px-4 py-2 rounded-lg font-burned text-sm uppercase tracking-wider ${
+              className={`px-4 py-2 rounded-lg font-rye text-xs uppercase tracking-wider transition-all ${
                 filterStatus === 'preparing'
-                  ? 'bg-diabla-flameOrange text-white'
-                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray'
+                  ? 'bg-orange-500 text-white border border-orange-500'
+                  : 'bg-diabla-black text-gray-400 border border-diabla-darkGray hover:border-gray-600'
               }`}
             >
               Preparando ({orders.filter(o => o.status === 'preparing').length})
             </button>
             <button
               onClick={() => setFilterStatus('ready')}
-              className={`px-4 py-2 rounded-lg font-burned text-sm uppercase tracking-wider ${
+              className={`px-4 py-2 rounded-lg font-rye text-xs uppercase tracking-wider transition-all ${
                 filterStatus === 'ready'
-                  ? 'bg-green-600 text-white'
-                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray'
+                  ? 'bg-green-500 text-white border border-green-500'
+                  : 'bg-diabla-black text-gray-400 border border-diabla-darkGray hover:border-gray-600'
               }`}
             >
               Listos ({orders.filter(o => o.status === 'ready').length})
             </button>
             <button
               onClick={() => setFilterStatus('delivered')}
-              className={`px-4 py-2 rounded-lg font-burned text-sm uppercase tracking-wider ${
+              className={`px-4 py-2 rounded-lg font-rye text-xs uppercase tracking-wider transition-all ${
                 filterStatus === 'delivered'
-                  ? 'bg-diabla-fireRed text-white'
-                  : 'bg-diabla-black text-diabla-smokeGray border border-diabla-darkGray'
+                  ? 'bg-diabla-emberRed text-white border border-diabla-emberRed'
+                  : 'bg-diabla-black text-gray-400 border border-diabla-darkGray hover:border-gray-600'
               }`}
             >
               Entregados ({orders.filter(o => o.status === 'delivered').length})
             </button>
           </div>
         </div>
+        <div className="mt-3 text-sm text-gray-500 font-rye">
+          Mostrando {filteredOrders.length} de {orders.length} pedidos
+        </div>
       </div>
 
       {/* Orders Table */}
-      <div className="admin-card-animated overflow-hidden">
+      <div className="bg-gradient-to-br from-diabla-charcoal to-diabla-darkGray rounded-lg border border-diabla-darkGray overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-diabla-black border-b border-diabla-darkGray">
+            <thead className="bg-diabla-black/50 border-b-2 border-diabla-darkGray">
               <tr>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
-                  Pedido #
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
+                  Pedido
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
                   Cliente
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
                   Teléfono
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
                   Total
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
                   Estado
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
                   Fecha
                 </th>
-                <th className="px-4 py-4 text-left text-xs font-burned uppercase tracking-wider text-diabla-hotRed">
+                <th className="px-4 py-4 text-left text-xs font-rye uppercase tracking-wider text-gray-400">
                   Acciones
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-diabla-darkGray">
+            <tbody className="divide-y divide-diabla-darkGray/50">
               {filteredOrders.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-4 py-12 text-center text-diabla-smokeGray font-rye">
-                    No se encontraron pedidos
+                  <td colSpan={7} className="px-4 py-16 text-center">
+                    <svg className="w-16 h-16 text-gray-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <p className="text-gray-500 font-rye">No se encontraron pedidos</p>
                   </td>
                 </tr>
               ) : (
                 filteredOrders.map((order) => (
                   <tr
                     key={order.id}
-                    className=""
+                    className="hover:bg-diabla-black/30 transition-colors"
                   >
-                    <td className="px-4 py-4 whitespace-nowrap">
-                      <span className="font-burned text-diabla-pepperYellow">
-                        #{order.id}
-                      </span>
+                    <td className="px-4 py-4">
+                      <div className="flex items-center gap-2">
+                        <span className="font-rye text-diabla-emberRed">#{order.id}</span>
+                      </div>
                     </td>
                     <td className="px-4 py-4">
                       <div className="text-sm">
-                        <div className="font-rye text-diabla-smokeGray">{order.customerName}</div>
-                        <div className="text-xs text-diabla-darkGray">{order.customerEmail}</div>
+                        <div className="font-rye text-white">{order.customerName}</div>
+                        <div className="text-xs text-gray-500 font-rye">{order.customerEmail}</div>
                       </div>
                     </td>
-                    <td className="px-4 py-4 whitespace-nowrap font-rye text-sm text-diabla-smokeGray">
+                    <td className="px-4 py-4 whitespace-nowrap font-rye text-sm text-gray-400">
                       {order.customerPhone}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
-                      <span className="font-burned text-diabla-pepperYellow text-lg">
+                      <span className="font-rye text-white text-base">
                         ${order.total.toFixed(2)}
                       </span>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
                       {updatingOrderId === order.id ? (
-                        <span className="px-3 py-1 text-xs font-burned text-diabla-smokeGray">
+                        <span className="px-3 py-1 text-xs font-rye text-gray-500">
                           Actualizando...
                         </span>
                       ) : (
                         <select
                           value={order.status}
                           onChange={(e) => handleStatusChange(order.id, e.target.value as OrderStatus)}
-                          className={`px-3 py-1 rounded-full text-xs font-burned uppercase tracking-wider cursor-pointer ${getStatusBadge(order.status)} border-none outline-none`}
+                          className={`px-3 py-1.5 rounded-md text-xs font-rye cursor-pointer transition-all ${getStatusBadge(order.status)} focus:outline-none focus:ring-2 focus:ring-diabla-emberRed/30`}
                         >
                           <option value="pending">Pendiente</option>
                           <option value="preparing">Preparando</option>
@@ -278,7 +289,7 @@ const AdminOrders = () => {
                         </select>
                       )}
                     </td>
-                    <td className="px-4 py-4 whitespace-nowrap text-sm font-rye text-diabla-smokeGray">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm font-rye text-gray-400">
                       {new Date(order.createdAt).toLocaleDateString('es-AR', {
                         day: '2-digit',
                         month: 'short',
@@ -288,7 +299,7 @@ const AdminOrders = () => {
                     <td className="px-4 py-4 whitespace-nowrap">
                       <button
                         onClick={() => setSelectedOrder(order)}
-                        className="text-diabla-pepperYellow font-burned text-sm uppercase tracking-wider"
+                        className="text-gray-400 hover:text-diabla-emberRed font-rye text-sm uppercase tracking-wider transition-colors"
                       >
                         Ver Detalles
                       </button>
@@ -303,20 +314,27 @@ const AdminOrders = () => {
 
       {/* Order Details Modal */}
       {selectedOrder && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50 overflow-y-auto">
-          <div className="admin-card-animated max-w-3xl w-full my-8 flex flex-col max-h-[calc(100vh-4rem)]">
-            <div className="bg-diabla-charcoal p-6 border-b border-diabla-darkGray flex justify-between items-start flex-shrink-0">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-auto">
+          <div className="bg-gradient-to-br from-diabla-charcoal to-diabla-darkGray border border-diabla-darkGray rounded-lg shadow-2xl max-w-3xl w-full my-8 flex flex-col max-h-[calc(100vh-4rem)]">
+            <div className="bg-diabla-black/50 p-6 border-b border-diabla-darkGray flex justify-between items-start flex-shrink-0">
               <div>
-                <h2 className="text-2xl font-burned font-bold text-diabla-hotRed uppercase tracking-wider">
+                <h2 className="text-xl font-rye font-bold text-gray-100 uppercase tracking-wider">
                   Pedido #{selectedOrder.id}
                 </h2>
-                <p className="text-sm text-diabla-smokeGray font-rye mt-1">
-                  {new Date(selectedOrder.createdAt).toLocaleString('es-AR')}
+                <p className="text-sm text-gray-400 font-rye mt-1">
+                  {new Date(selectedOrder.createdAt).toLocaleString('es-AR', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
                 </p>
               </div>
               <button
                 onClick={() => setSelectedOrder(null)}
-                className="text-diabla-smokeGray hover:text-diabla-fireRed transition-colors"
+                className="text-gray-500 hover:text-gray-300 transition-colors p-1"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -327,58 +345,64 @@ const AdminOrders = () => {
             <div className="p-6 space-y-6 overflow-y-auto flex-1">
               {/* Customer Info */}
               <div>
-                <h3 className="text-lg font-burned text-diabla-hotRed uppercase tracking-wider mb-3">
+                <h3 className="text-base font-rye text-gray-100 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <svg className="w-5 h-5 text-diabla-emberRed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
                   Información del Cliente
                 </h3>
-                <div className="bg-diabla-black p-4 rounded-lg space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-diabla-smokeGray font-rye text-sm">Nombre:</span>
-                    <span className="text-diabla-pepperYellow font-burned">{selectedOrder.customerName}</span>
+                <div className="bg-diabla-black/50 p-4 rounded-lg border border-diabla-darkGray space-y-3">
+                  <div className="flex justify-between items-start">
+                    <span className="text-gray-400 font-rye text-sm">Nombre:</span>
+                    <span className="text-white font-rye text-sm text-right">{selectedOrder.customerName}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-diabla-smokeGray font-rye text-sm">Email:</span>
-                    <span className="text-diabla-pepperYellow font-rye text-sm">{selectedOrder.customerEmail}</span>
+                  <div className="flex justify-between items-start border-t border-diabla-darkGray pt-3">
+                    <span className="text-gray-400 font-rye text-sm">Email:</span>
+                    <span className="text-gray-300 font-rye text-sm text-right">{selectedOrder.customerEmail}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-diabla-smokeGray font-rye text-sm">Teléfono:</span>
-                    <span className="text-diabla-pepperYellow font-rye text-sm">{selectedOrder.customerPhone}</span>
+                  <div className="flex justify-between items-start border-t border-diabla-darkGray pt-3">
+                    <span className="text-gray-400 font-rye text-sm">Teléfono:</span>
+                    <span className="text-gray-300 font-rye text-sm text-right">{selectedOrder.customerPhone}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-diabla-smokeGray font-rye text-sm">Dirección:</span>
-                    <span className="text-diabla-pepperYellow font-rye text-sm text-right">{selectedOrder.deliveryAddress}</span>
+                  <div className="flex justify-between items-start border-t border-diabla-darkGray pt-3">
+                    <span className="text-gray-400 font-rye text-sm">Dirección:</span>
+                    <span className="text-gray-300 font-rye text-sm text-right max-w-xs">{selectedOrder.deliveryAddress}</span>
                   </div>
                 </div>
               </div>
 
               {/* Order Items */}
               <div>
-                <h3 className="text-lg font-burned text-diabla-hotRed uppercase tracking-wider mb-3">
+                <h3 className="text-base font-rye text-gray-100 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <svg className="w-5 h-5 text-diabla-emberRed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                  </svg>
                   Productos
                 </h3>
                 <div className="space-y-2">
                   {selectedOrder.items.map((item) => (
                     <div
                       key={item.id}
-                      className="flex justify-between items-center bg-diabla-black p-4 rounded-lg"
+                      className="flex justify-between items-center bg-diabla-black/50 p-4 rounded-lg border border-diabla-darkGray hover:border-diabla-emberRed/30 transition-colors"
                     >
                       <div className="flex items-center gap-4">
                         {item.productImage && (
                           <img
                             src={item.productImage}
                             alt={item.productName}
-                            className="w-16 h-16 object-cover rounded"
+                            className="w-14 h-14 object-cover rounded border border-diabla-darkGray"
                           />
                         )}
                         <div>
-                          <div className="font-burned text-diabla-pepperYellow">
+                          <div className="font-rye text-white mb-1">
                             {item.productName}
                           </div>
-                          <div className="text-sm text-diabla-smokeGray font-rye">
-                            ${item.price.toFixed(2)} x {item.quantity}
+                          <div className="text-sm text-gray-400 font-rye">
+                            ${item.price.toFixed(2)} × {item.quantity}
                           </div>
                         </div>
                       </div>
-                      <div className="font-burned text-diabla-hotRed">
+                      <div className="font-rye text-diabla-emberRed font-bold">
                         ${item.subtotal.toFixed(2)}
                       </div>
                     </div>
@@ -388,21 +412,24 @@ const AdminOrders = () => {
 
               {/* Order Summary */}
               <div>
-                <h3 className="text-lg font-burned text-diabla-hotRed uppercase tracking-wider mb-3">
+                <h3 className="text-base font-rye text-gray-100 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <svg className="w-5 h-5 text-diabla-emberRed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z\" />
+                  </svg>
                   Resumen del Pedido
                 </h3>
-                <div className="bg-diabla-black p-4 rounded-lg space-y-2">
+                <div className="bg-diabla-black/50 p-4 rounded-lg border border-diabla-darkGray space-y-3">
                   <div className="flex justify-between font-rye text-sm">
-                    <span className="text-diabla-smokeGray">Subtotal:</span>
-                    <span className="text-diabla-pepperYellow">${selectedOrder.subtotal.toFixed(2)}</span>
+                    <span className="text-gray-400">Subtotal:</span>
+                    <span className="text-white">${selectedOrder.subtotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between font-rye text-sm">
-                    <span className="text-diabla-smokeGray">Impuestos:</span>
-                    <span className="text-diabla-pepperYellow">${selectedOrder.tax.toFixed(2)}</span>
+                  <div className="flex justify-between font-rye text-sm border-t border-diabla-darkGray pt-3">
+                    <span className="text-gray-400">Impuestos:</span>
+                    <span className="text-white">${selectedOrder.tax.toFixed(2)}</span>
                   </div>
-                  <div className="border-t border-diabla-darkGray pt-2 mt-2 flex justify-between">
-                    <span className="text-diabla-hotRed font-burned text-lg uppercase">Total:</span>
-                    <span className="text-diabla-fireRed font-burned text-2xl">${selectedOrder.total.toFixed(2)}</span>
+                  <div className="border-t-2 border-diabla-emberRed/30 pt-3 mt-3 flex justify-between">
+                    <span className="text-gray-100 font-rye text-base uppercase font-bold">Total:</span>
+                    <span className="text-diabla-emberRed font-rye text-2xl font-bold">${selectedOrder.total.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -410,19 +437,22 @@ const AdminOrders = () => {
               {/* Notes */}
               {selectedOrder.notes && (
                 <div>
-                  <h3 className="text-lg font-burned text-diabla-hotRed uppercase tracking-wider mb-3">
-                    Notas
+                  <h3 className="text-base font-rye text-gray-100 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-diabla-emberRed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z\" />
+                    </svg>
+                    Notas del Pedido
                   </h3>
-                  <div className="bg-diabla-black p-4 rounded-lg">
-                    <p className="text-diabla-smokeGray font-rye text-sm">{selectedOrder.notes}</p>
+                  <div className="bg-diabla-black/50 p-4 rounded-lg border border-diabla-darkGray">
+                    <p className="text-gray-300 font-rye text-sm">{selectedOrder.notes}</p>
                   </div>
                 </div>
               )}
 
               {/* Status */}
-              <div className="flex items-center justify-between">
-                <span className="text-diabla-smokeGray font-rye">Estado actual:</span>
-                <span className={`px-4 py-2 rounded-full text-sm font-burned uppercase tracking-wider ${getStatusBadge(selectedOrder.status)}`}>
+              <div className="flex items-center justify-between p-4 bg-diabla-black/50 rounded-lg border border-diabla-darkGray">
+                <span className="text-gray-400 font-rye text-sm">Estado actual del pedido:</span>
+                <span className={`px-4 py-2 rounded-md text-sm font-rye ${getStatusBadge(selectedOrder.status)}`}>
                   {getStatusText(selectedOrder.status)}
                 </span>
               </div>
