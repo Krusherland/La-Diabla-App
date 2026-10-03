@@ -155,6 +155,14 @@ export const orderService = {
     throw new Error(response.data.message || 'Failed to update order status');
   },
 
+  // Delete order (admin, cancelled orders only)
+  deleteOrder: async (id: number): Promise<void> => {
+    const response = await apiClient.delete<any>(`/admin/orders/${id}`);
+    if (response.data.status !== 'success') {
+      throw new Error(response.data.message || 'Failed to delete order');
+    }
+  },
+
   // Cancel order
   cancelOrder: async (id: number): Promise<Order> => {
     const response = await apiClient.patch<ApiResponse<any>>(`/orders/${id}/cancel`);

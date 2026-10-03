@@ -10,6 +10,9 @@ const AdminOrders = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [updatingOrderId, setUpdatingOrderId] = useState<number | null>(null);
+  const [orderToDelete, setOrderToDelete] = useState<Order | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const filteredOrders = useMemo(() => {
     let result = orders;
@@ -54,6 +57,21 @@ const AdminOrders = () => {
       }
     } finally {
       setUpdatingOrderId(null);
+    }
+  };
+
+  const handleDeleteOrder = async () => {
+    if (!orderToDelete) return;
+    setDeleting(true);
+    setDeleteError(null);
+    try {
+      await orderService.deleteOrder(orderToDelete.id);
+      setOrderToDelete(null);
+      await refetch();
+    } catch (err: any) {
+      setDeleteError(err?.response?.data?.message || err?.message || 'Error al eliminar el pedido');
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -297,12 +315,26 @@ const AdminOrders = () => {
                       })}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
-                      <button
-                        onClick={() => setSelectedOrder(order)}
-                        className="text-gray-400 hover:text-diabla-emberRed font-rye text-sm uppercase tracking-wider transition-colors"
-                      >
-                        Ver Detalles
-                      </button>
+                      <div className="flex items-center gap-4">
+                        <button
+                          onClick={() => setSelectedOrder(order)}
+                          className="text-gray-400 hover:text-diabla-emberRed font-rye text-sm uppercase tracking-wider transition-colors"
+                        >
+                          Ver Detalles
+                        </button>
+                        {order.status === 'cancelled' && (
+                          <button
+                            onClick={() => { setDeleteError(null); setOrderToDelete(order); }}
+                            title="Eliminar pedido"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-diabla-emberRed/10 hover:bg-diabla-emberRed text-diabla-emberRed hover:text-white border border-diabla-emberRed/40 hover:border-diabla-emberRed rounded-md font-rye text-xs uppercase tracking-wider transition-all"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            Eliminar
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -311,6 +343,46 @@ const AdminOrders = () => {
           </table>
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {orderToDelete && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-gradient-to-br from-diabla-charcoal to-diabla-darkGray border border-diabla-emberRed/50 rounded-lg shadow-2xl shadow-diabla-emberRed/20 max-w-md w-full">
+            <div className="p-6 text-center">
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-diabla-emberRed/10 border border-diabla-emberRed/40 flex items-center justify-center">
+                <svg className="w-7 h-7 text-diabla-emberRed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-rye font-bold text-gray-100 uppercase tracking-wider">
+                ¿Eliminar pedido #{orderToDelete.id}?
+              </h2>
+              <p className="text-gray-400 font-rye text-sm mt-2">
+                El pedido de {orderToDelete.customerName} será borrado para siempre. Esta acción no se puede deshacer.
+              </p>
+              {deleteError && (
+                <p className="mt-3 text-sm font-rye text-diabla-emberRed">{deleteError}</p>
+              )}
+            </div>
+            <div className="flex gap-3 p-6 pt-0">
+              <button
+                onClick={() => setOrderToDelete(null)}
+                disabled={deleting}
+                className="flex-1 px-4 py-2.5 bg-transparent hover:bg-gray-800 text-gray-300 border border-gray-700 rounded-lg font-rye text-sm uppercase tracking-wider transition-all disabled:opacity-50"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleDeleteOrder}
+                disabled={deleting}
+                className="flex-1 px-4 py-2.5 bg-diabla-emberRed hover:bg-red-700 text-white border border-diabla-emberRed rounded-lg font-rye text-sm uppercase tracking-wider transition-all disabled:opacity-50"
+              >
+                {deleting ? 'Eliminando...' : 'Eliminar'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Order Details Modal */}
       {selectedOrder && (
@@ -456,6 +528,34 @@ const AdminOrders = () => {
                   {getStatusText(selectedOrder.status)}
                 </span>
               </div>
+            </div>
+
+            <div className="flex flex-col-reverse sm:flex-row sm:justify-between gap-3 p-4 border-t border-diabla-darkGray bg-diabla-black/50 flex-shrink-0">
+              {selectedOrder.status === 'cancelled' ? (
+                <button
+                  onClick={() => {
+                    setDeleteError(null);
+                    setOrderToDelete(selectedOrder);
+                    setSelectedOrder(null);
+                  }}
+                  className="flex items-center justify-center gap-2 px-5 py-2.5 bg-diabla-emberRed/10 hover:bg-diabla-emberRed text-diabla-emberRed hover:text-white border border-diabla-emberRed/40 hover:border-diabla-emberRed rounded-lg font-rye text-sm uppercase tracking-wider transition-all"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                  Eliminar Pedido
+                </button>
+              ) : (
+                <span className="text-xs font-rye text-gray-500 self-center">
+                  Solo se pueden eliminar pedidos cancelados
+                </span>
+              )}
+              <button
+                onClick={() => setSelectedOrder(null)}
+                className="px-5 py-2.5 bg-transparent hover:bg-gray-800 text-gray-300 border border-gray-700 rounded-lg font-rye text-sm uppercase tracking-wider transition-all"
+              >
+                Cerrar
+              </button>
             </div>
           </div>
         </div>
